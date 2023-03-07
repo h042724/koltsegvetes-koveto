@@ -1,0 +1,13 @@
+﻿@model webapi.Models.Expense
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div id="app">  
+    <CreateExpenses CreateExpenseUrl="@Url.Action("Create", "Expense")"/>
+</div>
+
+@section Scripts {
+    <script src="@Url.Content("~/bundle/Expense.js")"></script>
+}
