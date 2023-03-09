@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "a0LCM5JNlO1Qgr3/vYsdONzQbpPLN0vWY75TCZ1FZPv8FcHlzMRJ7mXbW9ECBuyNXMS2eDQo4a+xGriuzBePjA==",
+  "dgSpecHash": "irLle8alqOjYGGLcbj6U9aLy1ZXvdYlSI5EJM85hJ3XxrYhjUkYSZvMvdR8w5EQ+kN1Vws8HGMBUXXEl2qPPyw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\bajna\\Desktop\\GitHub repo\\koltsegvetes-koveto\\webapi\\webapi.csproj",
+  "projectFilePath": "C:\\Users\\bajna\\Desktop\\GitHub repo\\webapi\\webapi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\bajna\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\bajna\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

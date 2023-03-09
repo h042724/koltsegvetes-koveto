@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bajna\\Desktop\\GitHub repo\\koltsegvetes-koveto\\webapi\\webapi.csproj": {}
+    "C:\\Users\\bajna\\Desktop\\GitHub repo\\webapi\\webapi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bajna\\Desktop\\GitHub repo\\koltsegvetes-koveto\\webapi\\webapi.csproj": {
+    "C:\\Users\\bajna\\Desktop\\GitHub repo\\webapi\\webapi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bajna\\Desktop\\GitHub repo\\koltsegvetes-koveto\\webapi\\webapi.csproj",
+        "projectUniqueName": "C:\\Users\\bajna\\Desktop\\GitHub repo\\webapi\\webapi.csproj",
         "projectName": "webapi",
-        "projectPath": "C:\\Users\\bajna\\Desktop\\GitHub repo\\koltsegvetes-koveto\\webapi\\webapi.csproj",
+        "projectPath": "C:\\Users\\bajna\\Desktop\\GitHub repo\\webapi\\webapi.csproj",
         "packagesPath": "C:\\Users\\bajna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bajna\\Desktop\\GitHub repo\\koltsegvetes-koveto\\webapi\\obj\\",
+        "outputPath": "C:\\Users\\bajna\\Desktop\\GitHub repo\\webapi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\bajna\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,0 +1,4 @@
+C:\Users\bajna\Desktop\pls\koltsegvetes-koveto\vueapp\obj\Debug\vueapp.esproj.SuggestedBindingRedirects.cache
+C:\Users\bajna\Desktop\pls\koltsegvetes-koveto\vueapp\obj\Debug\vueapp.esproj.CoreCompileInputs.cache
+C:\Users\bajna\Desktop\GitHub repo\vueapp\obj\Debug\vueapp.esproj.SuggestedBindingRedirects.cache
+C:\Users\bajna\Desktop\GitHub repo\vueapp\obj\Debug\vueapp.esproj.CoreCompileInputs.cache
