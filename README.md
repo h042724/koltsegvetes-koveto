@@ -1,2 +1,0 @@
-# koltsegvetes-koveto
-BSc diplomamunka
