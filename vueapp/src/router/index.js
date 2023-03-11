@@ -1,20 +1,51 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Home from '../views/HomeView.vue'
+import About from '../views/AboutView.vue'
+import IndexExpenses from '../views/Expenses/IndexView.vue'
+import CreateExpenses from '../views/Expenses/CreateView.vue'
+import EditExpenses from '../views/Expenses/EditView.vue'
+import DeleteExpenses from '../views/Expenses/DeleteView.vue'
+import DetailsExpenses from '../views/Expenses/DetailsView.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'Home',
+    component: Home
   },
   {
     path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+    name: 'About',
+    component: About
+  },
+  {
+    path: '/expenses',
+    name: 'IndexExpenses',
+    component: IndexExpenses
+  },
+  {
+    path: '/expenses/create',
+    name: 'CreateExpenses',
+    component: CreateExpenses
+  },
+  {
+    path: '/expenses/edit/:id',
+    name: 'EditExpenses',
+    component: EditExpenses,
+    props: true
+  },
+  {
+    path: '/expenses/delete/:id',
+    name: 'DeleteExpenses',
+    component: DeleteExpenses,
+    props: true
+  },
+  {
+    path: '/expenses/details/:id',
+    name: 'DetailsExpenses',
+    component: DetailsExpenses,
+    props: true
+  },
 ]
 
 const router = createRouter({
