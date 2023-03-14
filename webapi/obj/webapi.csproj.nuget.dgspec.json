@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bajna\\Desktop\\GitHub repo final\\koltsegvetes-koveto\\webapi\\webapi.csproj": {}
+    "C:\\Users\\bajna\\Desktop\\temp\\koltsegvetes-koveto\\webapi\\webapi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bajna\\Desktop\\GitHub repo final\\koltsegvetes-koveto\\webapi\\webapi.csproj": {
+    "C:\\Users\\bajna\\Desktop\\temp\\koltsegvetes-koveto\\webapi\\webapi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bajna\\Desktop\\GitHub repo final\\koltsegvetes-koveto\\webapi\\webapi.csproj",
+        "projectUniqueName": "C:\\Users\\bajna\\Desktop\\temp\\koltsegvetes-koveto\\webapi\\webapi.csproj",
         "projectName": "webapi",
-        "projectPath": "C:\\Users\\bajna\\Desktop\\GitHub repo final\\koltsegvetes-koveto\\webapi\\webapi.csproj",
+        "projectPath": "C:\\Users\\bajna\\Desktop\\temp\\koltsegvetes-koveto\\webapi\\webapi.csproj",
         "packagesPath": "C:\\Users\\bajna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bajna\\Desktop\\GitHub repo final\\koltsegvetes-koveto\\webapi\\obj\\",
+        "outputPath": "C:\\Users\\bajna\\Desktop\\temp\\koltsegvetes-koveto\\webapi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\bajna\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -43,6 +43,28 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.3, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[7.0.4, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
