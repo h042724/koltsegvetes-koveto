@@ -24,21 +24,10 @@ namespace webapi.Controllers
         }
 
         // GET: Expenses/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [HttpGet("{id:int}")]
+        public Expenses Details(int id)
         {
-            if (id == null || _context.expenses == null)
-            {
-                return NotFound();
-            }
-
-            var expenses = await _context.expenses
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (expenses == null)
-            {
-                return NotFound();
-            }
-
-            return View(expenses);
+            return _context.expenses.FirstOrDefault(m => m.ID == id);
         }
 
         // GET: Expenses/Create
