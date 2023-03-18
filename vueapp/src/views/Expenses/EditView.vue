@@ -1,71 +1,80 @@
 <template>
-    <div id="expense">
-        <h1>Expense edit - Vue</h1>
-        <div v-if="post" class="content">
-            <form method="post">
-                <div class="row">
-                    <div class="col-md-4" v-for="expense in post" :key="expense.id">
-                        <div class="text-danger"></div>
-                        <input type="number" name="Id" :value=expense.id />
-                        <div class="form-group">
-                            <label for="Name" class="control-label">Expense Name</label>
-                            <input name="Name" class="form-control" :value=expense.name />
-                        </div>
-                        <div class="form-group">
-                            <label for="Amount" class="control-label">Amount</label>
-                            <input name="Amount" class="form-control" :value=expense.amount />
-                        </div>
-                        <div class="form-group">
-                            <label for="TransactionDate" class="control-label">Transaction Date</label>
-                            <input name="TransactionDate" class="form-control" :value=expense.transactionDate />
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="Save" class="btn btn-primary" />
-                        </div>
-                    </div>
+    <div id="app" class="container">
+        <div class="card" v-if="post">
+            <div class="card-header">Vue Fetch POST</div>
+            <div class="card-body">
+                <div class="form-group">
+                    <input id="id" type="text" class="form-control" ref="post_id" :value=post.id disabled />
                 </div>
-            </form>
+                <div class="form-group">
+                    <input id="name" type="text" class="form-control" ref="post_name" :value=post.name />
+                </div>
+                <div class="form-group">
+                    <input id="amount" type="text" class="form-control" ref="post_amount" :value=post.amount />
+                </div>
+                <div class="form-group">
+                    <input id="transaction-date" type="text" class="form-control" ref="post_transactionDate" :value=post.transactionDate />
+                </div>
+                <button class="btn btn-sm btn-primary" @click="postData">Post Data</button>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-export default {
-    name: 'IndexView',
-    components: {},
-    props: ['id'],
-    data() {
-        return {
-            loading: false,
-            post: null
-        };
-    },
-    created() {
-        // fetch the data when the view is created and the data is
-        // already being observed
-        this.fetchData();
-    },
-    watch: {
-        // call again the method if the route changes
-        '$route': 'fetchData'
-    },
-    methods: {
-        fetchData() {
-            this.post = null;
-            this.loading = true;
+    const uri = 'https://localhost:7007/expenses';
 
-            fetch('https://localhost:7007/expenses/')
-                .then(r => r.json())
-                .then(json => {
-                    this.post = json;
-                    this.loading = false;
-                    return
-                });
+    export default {
+        name: "EditView",
+        props: ['id'],
+        data() {
+            return {
+                loading: false,
+                post: null
+            }
+        },
+        created() {
+            this.fetchData();
+        },
+        watch: {
+            '$route': 'fetchData'
+        },
+        methods: {
+            fetchData() {
+                this.post = null;
+                this.loading = true;
+
+                fetch(`${uri}/${this.id}`)
+                    .then(r => r.json())
+                    .then(json => {
+                        this.post = json;
+                        this.loading = false;
+                        return
+                    });
+            },
+
+            async postData() {
+                const postData = {
+                    id: document.getElementById('id').value,
+                    name: document.getElementById('name').value,
+                    amount: document.getElementById('amount').value,
+                    transactionDate: document.getElementById('transaction-date').value,
+                };
+
+                try {
+                    await fetch(`${uri}/edit/${this.id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(postData),
+                    }).then(this.$router.push('/expenses'))
+                        .catch(error => console.error('Unable to update item.', error));
+                } catch (err) {
+                    console.log(err); // Failed to fetch
+                }
+            },
         }
-    },
-}
+    }
 </script>
-
-<style>
-
-</style>

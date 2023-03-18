@@ -30,17 +30,9 @@ namespace webapi.Controllers
             return _context.expenses.FirstOrDefault(m => m.ID == id);
         }
 
-        // GET: Expenses/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
 
         // POST: Expenses/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Name,Amount,TransactionDate")] Expenses expenses)
         {
             if (ModelState.IsValid)
@@ -52,27 +44,8 @@ namespace webapi.Controllers
             return View(expenses);
         }
 
-        // GET: Expenses/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.expenses == null)
-            {
-                return NotFound();
-            }
-
-            var expenses = await _context.expenses.FindAsync(id);
-            if (expenses == null)
-            {
-                return NotFound();
-            }
-            return View(expenses);
-        }
-
         // POST: Expenses/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost("edit/{id}")]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Amount,TransactionDate")] Expenses expenses)
         {
             if (id != expenses.ID)
@@ -103,27 +76,9 @@ namespace webapi.Controllers
             return View(expenses);
         }
 
-        // GET: Expenses/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.expenses == null)
-            {
-                return NotFound();
-            }
 
-            var expenses = await _context.expenses
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (expenses == null)
-            {
-                return NotFound();
-            }
-
-            return View(expenses);
-        }
-
-        // POST: Expenses/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        // DELETE: Expenses/Delete/5
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.expenses == null)
@@ -135,7 +90,6 @@ namespace webapi.Controllers
             {
                 _context.expenses.Remove(expenses);
             }
-            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

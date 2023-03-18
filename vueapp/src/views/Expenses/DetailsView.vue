@@ -1,31 +1,31 @@
 <template>
     <div id="expense">
         <h1>Expense details - Vue</h1>
-        <dl class="row">
+        <dl class="row" v-if="post">
             <dt class="col-sm-2">
                 <label>ID</label>
             </dt>
             <dd class="col-sm-10">
-                {{ id }}
+                {{ post.id }}
             </dd>
-            <!--<dt class="col-sm-2">
-                <label>Category</label>
+            <dt class="col-sm-2">
+                <label>Name</label>
             </dt>
             <dd class="col-sm-10">
-                {{Expense.Category}}
+                {{ post.name }}
+            </dd>
+            <dt class="col-sm-2">
+                <label>Amount</label>
+            </dt>
+            <dd class="col-sm-10">
+                {{ post.amount }}
             </dd>
             <dt class="col-sm-2">
                 <label>Transaction Date</label>
             </dt>
             <dd class="col-sm-10">
-                {{Expense.TransactionDate}}
+                {{ post.transactionDate }}
             </dd>
-            <dt class="col-sm-2">
-                <label>User Guid</label>
-            </dt>
-            <dd class="col-sm-10">
-                {{Expense.UserGuid}}
-            </dd>-->
         </dl>
         <div>
             <router-link :to="{ name: 'EditExpenses', params: { id: id}}">Edit</router-link> |
@@ -35,9 +35,38 @@
 </template>
 
 <script>
-export default {
-    props: ['id']
-}
+    const uri = 'https://localhost:7007/expenses';
+
+    export default {
+        name: "DetailsView",
+        props: ['id'],
+        data() {
+            return {
+                loading: false,
+                post: null
+            }
+        },
+        created() {
+            this.fetchData();
+        },
+        watch: {
+            '$route': 'fetchData'
+        },
+        methods: {
+            fetchData() {
+                this.post = null;
+                this.loading = true;
+
+                fetch(`${uri}/${this.id}`)
+                    .then(r => r.json())
+                    .then(json => {
+                        this.post = json;
+                        this.loading = false;
+                        return
+                    });
+            },
+        }
+    }
 </script>
 
 <style>

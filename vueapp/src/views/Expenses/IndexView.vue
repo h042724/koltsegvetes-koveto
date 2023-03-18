@@ -24,7 +24,7 @@
                             <td>{{ expense.id }}</td>
                             <td>{{ expense.name }}</td>
                             <td>{{ expense.amount }}</td>
-                            <td>{{ expense.TransactionDate }}</td>
+                            <td>{{ expense.transactionDate }}</td>
                             <td>
                                 <router-link :to="{ name: 'EditExpenses', params: { id: expense.id}}">Edit</router-link> |
                                 <router-link :to="{ name: 'DetailsExpenses', params: { id: expense.id}}">Details</router-link> |
