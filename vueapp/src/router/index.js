@@ -24,12 +24,13 @@ const routes = [
     component: IndexExpenses
   },
   {
-    path: '/expenses/create',
+    path: '/expenses/create/:type',
     name: 'CreateExpenses',
-    component: CreateExpenses
+    component: CreateExpenses,
+    props: true
   },
   {
-    path: '/expenses/edit/:id',
+    path: '/expenses/edit/:type/:id',
     name: 'EditExpenses',
     component: EditExpenses,
     props: true

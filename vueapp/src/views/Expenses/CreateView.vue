@@ -23,16 +23,17 @@ const uri = 'https://localhost:7007/expenses';
 
 export default {
     name: "CreateView",
+    props: ['type'],
     methods: {
         async postData() {
             const postData = {
                 name: document.getElementById('name').value,
                 amount: document.getElementById('amount').value,
-                transactionDate: document.getElementById('transaction-date').value,
+                transactionDate: document.getElementById('transaction-date').value
             };
 
             try {
-                await fetch(`${uri}`, {
+                await fetch(`${uri}/${this.type}`, {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',

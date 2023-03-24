@@ -32,11 +32,15 @@ namespace webapi.Controllers
 
 
         // POST: Expenses/Create
-        [HttpPost]
-        public async Task<IActionResult> Create([Bind("ID,Name,Amount,TransactionDate")] Expenses expenses)
+        [HttpPost("{type}")]
+        public async Task<IActionResult> Create(string type, [Bind("ID,Name,Amount,TransactionDate")] Expenses expenses)
         {
             if (ModelState.IsValid)
             {
+                if(type == "expense")
+                {
+                    expenses.Amount *= -1;
+                } 
                 _context.Add(expenses);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -45,8 +49,8 @@ namespace webapi.Controllers
         }
 
         // POST: Expenses/Edit/5
-        [HttpPost("edit/{id}")]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Amount,TransactionDate")] Expenses expenses)
+        [HttpPost("edit/{type}/{id}")]
+        public async Task<IActionResult> Edit(string type, int id, [Bind("ID,Name,Amount,TransactionDate")] Expenses expenses)
         {
             if (id != expenses.ID)
             {
@@ -55,11 +59,15 @@ namespace webapi.Controllers
 
             if (ModelState.IsValid)
             {
+                if (type == "expense")
+                {
+                    expenses.Amount *= -1;
+                }
                 try
                 {
                     _context.Update(expenses);
                     await _context.SaveChangesAsync();
-                }
+                }   
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!ExpensesExists(expenses.ID))

@@ -10,7 +10,7 @@
                     <input id="name" type="text" class="form-control" ref="post_name" :value=post.name />
                 </div>
                 <div class="form-group">
-                    <input id="amount" type="text" class="form-control" ref="post_amount" :value=post.amount />
+                    <input id="amount" type="text" class="form-control" ref="post_amount" :value=Math.abs(post.amount) />
                 </div>
                 <div class="form-group">
                     <input id="transaction-date" type="text" class="form-control" ref="post_transactionDate" :value=post.transactionDate />
@@ -26,7 +26,7 @@
 
     export default {
         name: "EditView",
-        props: ['id'],
+        props: ['id', 'type'],
         data() {
             return {
                 loading: false,
@@ -62,7 +62,7 @@
                 };
 
                 try {
-                    await fetch(`${uri}/edit/${this.id}`, {
+                    await fetch(`${uri}/edit/${this.type}/${this.id}`, {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',

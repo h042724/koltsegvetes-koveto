@@ -2,7 +2,8 @@
     <div id="expense">
         <h1>Expense Index - Vue</h1>
         <p>
-            <router-link :to="{ name: 'CreateExpenses' }">Create new</router-link>
+            <router-link :to="{ name: 'CreateExpenses', params: { type: 'expense'}}">Add New Expense</router-link> |
+            <router-link :to="{ name: 'CreateExpenses', params: { type: 'income'}}">Add New Income</router-link>
         </p>
         <div class="post">
             <div v-if="loading" class="loading">
@@ -21,12 +22,12 @@
                     </thead>
                     <tbody>
                         <tr v-for="expense in post" :key="expense.id">
-                            <td>{{ expense.id }}</td>
+                            <td>{{ expense.id }}</td>   
                             <td>{{ expense.name }}</td>
                             <td>{{ expense.amount }}</td>
                             <td>{{ expense.transactionDate }}</td>
                             <td>
-                                <router-link :to="{ name: 'EditExpenses', params: { id: expense.id}}">Edit</router-link> |
+                                <router-link :to="{ name: 'EditExpenses', params: { id: expense.id, type: expense.amount < 0 ? 'expense' : 'income'}}">Edit</router-link> |
                                 <router-link :to="{ name: 'DetailsExpenses', params: { id: expense.id}}">Details</router-link> |
                                 <router-link :to="{ name: 'DeleteExpenses', params: { id: expense.id}}">Delete</router-link>
                             </td>
@@ -49,12 +50,9 @@
             };
         },
         created() {
-            // fetch the data when the view is created and the data is
-            // already being observed
             this.fetchData();
         },
         watch: {
-            // call again the method if the route changes
             '$route': 'fetchData'
         },
         methods: {

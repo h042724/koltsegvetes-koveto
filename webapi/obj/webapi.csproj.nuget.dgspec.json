@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bajna\\Desktop\\temp\\koltsegvetes-koveto\\webapi\\webapi.csproj": {}
+    "C:\\Users\\bajna\\Desktop\\vue-route\\koltsegvetes-koveto\\webapi\\webapi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bajna\\Desktop\\temp\\koltsegvetes-koveto\\webapi\\webapi.csproj": {
+    "C:\\Users\\bajna\\Desktop\\vue-route\\koltsegvetes-koveto\\webapi\\webapi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bajna\\Desktop\\temp\\koltsegvetes-koveto\\webapi\\webapi.csproj",
+        "projectUniqueName": "C:\\Users\\bajna\\Desktop\\vue-route\\koltsegvetes-koveto\\webapi\\webapi.csproj",
         "projectName": "webapi",
-        "projectPath": "C:\\Users\\bajna\\Desktop\\temp\\koltsegvetes-koveto\\webapi\\webapi.csproj",
+        "projectPath": "C:\\Users\\bajna\\Desktop\\vue-route\\koltsegvetes-koveto\\webapi\\webapi.csproj",
         "packagesPath": "C:\\Users\\bajna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bajna\\Desktop\\temp\\koltsegvetes-koveto\\webapi\\obj\\",
+        "outputPath": "C:\\Users\\bajna\\Desktop\\vue-route\\koltsegvetes-koveto\\webapi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\bajna\\AppData\\Roaming\\NuGet\\NuGet.Config",
