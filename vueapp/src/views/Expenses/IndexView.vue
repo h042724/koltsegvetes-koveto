@@ -1,15 +1,12 @@
 <template>
-    <div id="expense">
+    <div id="expense" class="d-flex flex-column justify-content-center w-100 h-100">
         <h1>Expense Index - Vue</h1>
         <p>
             <router-link :to="{ name: 'CreateExpenses', params: { type: 'expense'}}">Add New Expense</router-link> |
             <router-link :to="{ name: 'CreateExpenses', params: { type: 'income'}}">Add New Income</router-link>
         </p>
         <div class="post">
-            <div v-if="loading" class="loading">
-                Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationvue">https://aka.ms/jspsintegrationvue</a> for more details.
-            </div>
-
+            <div v-if="loading" class="loading"></div>
             <div v-if="post" class="content">
                 <table>
                     <thead>
@@ -73,5 +70,52 @@
 </script>
 
 <style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(-45deg, #dcdcdb, #bfc0bf, #868885, #515250);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        height: 100vh;
+    }
 
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .loading {
+        margin: 70px auto;
+        width: 40px;
+        height: 40px;
+        border: 5px solid rgba(255,255,255,0.2);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s linear infinite;
+    }
+
+    @Keyframes spin {
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .content {
+        background-color: white;
+        opacity: 0.5;
+        padding: 0 100px;
+    }
+
+    td, th {
+        color: black;
+    }
 </style>
