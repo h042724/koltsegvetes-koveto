@@ -2,8 +2,11 @@
     <div id="index">
         <h1>Transactions index</h1>
         <div id="transactions-add-router">
-            <router-link :to="{ name: 'CreateExpenses', params: { type: 'expense'}}">Add New Expense</router-link> |
-            <router-link :to="{ name: 'CreateExpenses', params: { type: 'income'}}">Add New Income</router-link>
+            <button>+</button>
+            <div class="dropdown-content">
+                <router-link :to="{ name: 'CreateExpenses', params: { type: 'expense'}}">Add New Expense</router-link>
+                <router-link :to="{ name: 'CreateExpenses', params: { type: 'income'}}">Add New Income</router-link>
+            </div>
         </div>
         <div v-if="loading" class="loading"></div>
         <div v-if="transactions" id="index-transactions" class="transactions-body">
