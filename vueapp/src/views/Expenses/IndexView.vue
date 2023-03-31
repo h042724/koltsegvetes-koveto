@@ -70,52 +70,5 @@
 </script>
 
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        background: linear-gradient(-45deg, #dcdcdb, #bfc0bf, #868885, #515250);
-        background-size: 400% 400%;
-        animation: gradient 15s ease infinite;
-        height: 100vh;
-    }
 
-    @keyframes gradient {
-        0% {
-            background-position: 0% 50%;
-        }
-
-        50% {
-            background-position: 100% 50%;
-        }
-
-        100% {
-            background-position: 0% 50%;
-        }
-    }
-
-    .loading {
-        margin: 70px auto;
-        width: 40px;
-        height: 40px;
-        border: 5px solid rgba(255,255,255,0.2);
-        border-radius: 50%;
-        border-top-color: #fff;
-        animation: spin 1s linear infinite;
-    }
-
-    @Keyframes spin {
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-
-    .content {
-        background-color: white;
-        opacity: 0.5;
-        padding: 0 100px;
-    }
-
-    td, th {
-        color: black;
-    }
 </style>

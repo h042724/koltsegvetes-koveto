@@ -1,7 +1,7 @@
 <template>
     <div id="app" class="container">
-        <div class="card" v-if="post">
-            <div class="card-header">Vue Fetch POST</div>
+        <div class="card" v-show="post">
+            <div class="card-header">Modify transaction</div>
             <div class="card-body">
                 <div class="form-group">
                     <input id="id" type="text" class="form-control" ref="post_id" :value=post.id disabled />
@@ -13,7 +13,7 @@
                     <input id="amount" type="text" class="form-control" ref="post_amount" :value=Math.abs(post.amount) />
                 </div>
                 <div class="form-group">
-                    <input id="transaction-date" type="text" class="form-control" ref="post_transactionDate" :value=post.transactionDate />
+                    <input id="transaction-date" type="date" class="form-control" ref="transactionDate" :value=post.transactionDate required />
                 </div>
                 <button class="btn btn-sm btn-primary" @click="postData">Post Data</button>
             </div>
@@ -58,7 +58,7 @@
                     id: document.getElementById('id').value,
                     name: document.getElementById('name').value,
                     amount: document.getElementById('amount').value,
-                    transactionDate: document.getElementById('transaction-date').value,
+                    transactionDate: this.$refs.transactionDate.value
                 };
 
                 try {
@@ -75,6 +75,9 @@
                     console.log(err); // Failed to fetch
                 }
             },
+        },
+        mounted() {
+            this.$refs.transactionDate.focus()
         }
     }
 </script>

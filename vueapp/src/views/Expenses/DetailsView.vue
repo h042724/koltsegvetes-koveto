@@ -26,11 +26,11 @@
             <dd class="col-sm-10">
                 {{ post.transactionDate }}
             </dd>
+            <dd>
+                <router-link :to="{ name: 'EditExpenses', params: { id: post.id, type: post.amount < 0 ? 'expense' : 'income'}}">Edit</router-link> |
+                <router-link :to="{ name: 'IndexExpenses' }">Back to List</router-link>
+            </dd>
         </dl>
-        <div>
-            <router-link :to="{ name: 'EditExpenses', params: { id: id}}">Edit</router-link> |
-            <router-link :to="{ name: 'IndexExpenses' }">Back to List</router-link>
-        </div>
     </div>
 </template>
 
