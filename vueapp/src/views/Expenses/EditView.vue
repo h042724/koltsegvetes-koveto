@@ -1,21 +1,24 @@
 <template>
-    <div id="app" class="container">
-        <div class="card" v-show="post">
-            <div class="card-header">Modify transaction</div>
-            <div class="card-body">
+    <div id="edit">
+        <h1>Edit transaction</h1>
+        <div id="edit-transactions" class="transactions-body" v-show="transactions">
+            <div>
                 <div class="form-group">
-                    <input id="id" type="text" class="form-control" ref="post_id" :value=post.id disabled />
+                    <input id="id" type="hidden" ref="id" :value=transactions.id />
                 </div>
                 <div class="form-group">
-                    <input id="name" type="text" class="form-control" ref="post_name" :value=post.name />
+                    <label for="name">Name:</label>
+                    <input id="name" type="text" class="form-control" ref="name" :value=transactions.name />
                 </div>
                 <div class="form-group">
-                    <input id="amount" type="text" class="form-control" ref="post_amount" :value=Math.abs(post.amount) />
+                    <label for="amount">Amount:</label>
+                    <input id="amount" type="text" class="form-control" ref="amount" :value=Math.abs(transactions.amount) />
                 </div>
                 <div class="form-group">
-                    <input id="transaction-date" type="date" class="form-control" ref="transactionDate" :value=post.transactionDate required />
+                    <label for="transaction-date">Transaction date:</label>
+                    <input id="transaction-date" type="date" class="form-control" ref="transactionDate" :value=transactions.transactionDate required />
                 </div>
-                <button class="btn btn-sm btn-primary" @click="postData">Post Data</button>
+                <button @click="editData()">Edit</button>
             </div>
         </div>
     </div>
@@ -30,7 +33,7 @@
         data() {
             return {
                 loading: false,
-                post: null
+                transactions: null
             }
         },
         created() {
@@ -41,23 +44,23 @@
         },
         methods: {
             fetchData() {
-                this.post = null;
+                this.transactions = null;
                 this.loading = true;
 
                 fetch(`${uri}/${this.id}`)
                     .then(r => r.json())
                     .then(json => {
-                        this.post = json;
+                        this.transactions = json;
                         this.loading = false;
                         return
                     });
             },
 
-            async postData() {
+            async editData() {
                 const postData = {
-                    id: document.getElementById('id').value,
-                    name: document.getElementById('name').value,
-                    amount: document.getElementById('amount').value,
+                    id: this.$refs.id.value,
+                    name: this.$refs.name.value,
+                    amount: this.$refs.amount.value,
                     transactionDate: this.$refs.transactionDate.value
                 };
 
@@ -77,6 +80,9 @@
             },
         },
         mounted() {
+            this.$refs.id.focus()
+            this.$refs.name.focus()
+            this.$refs.amount.focus()
             this.$refs.transactionDate.focus()
         }
     }

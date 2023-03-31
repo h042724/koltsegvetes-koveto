@@ -1,37 +1,35 @@
 <template>
-    <div id="expense">
-        <h1>Expense details - Vue</h1>
-        <dl class="row" v-if="post">
-            <dt class="col-sm-2">
-                <label>ID</label>
-            </dt>
-            <dd class="col-sm-10">
-                {{ post.id }}
-            </dd>
-            <dt class="col-sm-2">
-                <label>Name</label>
-            </dt>
-            <dd class="col-sm-10">
-                {{ post.name }}
-            </dd>
-            <dt class="col-sm-2">
-                <label>Amount</label>
-            </dt>
-            <dd class="col-sm-10">
-                {{ post.amount }}
-            </dd>
-            <dt class="col-sm-2">
-                <label>Transaction Date</label>
-            </dt>
-            <dd class="col-sm-10">
-                {{ post.transactionDate }}
-            </dd>
-            <dd>
-                <router-link :to="{ name: 'EditExpenses', params: { id: post.id, type: post.amount < 0 ? 'expense' : 'income'}}">Edit</router-link> |
-                <router-link :to="{ name: 'IndexExpenses' }">Back to List</router-link>
-            </dd>
-        </dl>
-    </div>
+    <div id="details">
+        <h1>Transactions details</h1>
+        <div id="details-transactions" class="transactions-body">
+            <dl v-show="transactions">
+                <dt>
+                    <label>Name</label>
+                </dt>
+                <dd class="col-sm-10">
+                    {{ transactions.name }}
+                </dd>
+                <dt>
+                    <label>Amount</label>
+                </dt>
+                <dd class="col-sm-10">
+                    {{ transactions.amount }}
+                </dd>
+                <dt>
+                    <label>Transaction Date</label>
+                </dt>
+                <dd class="col-sm-10">
+                    {{ transactions.transactionDate }}
+                </dd>
+                <button>
+                    <router-link :to="{ name: 'EditExpenses', params: { id: transactions.id, type: transactions.amount < 0 ? 'expense' : 'income'}}"></router-link>Edit
+                </button>
+                <button>
+                    <router-link :to="{ name: 'IndexExpenses' }"></router-link>Back to List
+                </button>
+            </dl>
+        </div>
+        </div>
 </template>
 
 <script>
@@ -43,7 +41,7 @@
         data() {
             return {
                 loading: false,
-                post: null
+                transactions: null
             }
         },
         created() {
@@ -54,13 +52,13 @@
         },
         methods: {
             fetchData() {
-                this.post = null;
+                this.transactions = null;
                 this.loading = true;
 
                 fetch(`${uri}/${this.id}`)
                     .then(r => r.json())
                     .then(json => {
-                        this.post = json;
+                        this.transactions = json;
                         this.loading = false;
                         return
                     });

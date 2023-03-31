@@ -1,0 +1,96 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+
+#transactions-add-router {
+
+}
+
+.transactions-body {
+    min-height: 100px;
+    max-width: 1000px;
+    margin: 30px auto;
+    background: white;
+    text-align: left;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 10px auto;
+    padding: 10px;
+}
+
+tr,th, td {
+    margin: 10px auto;
+    padding: 10px;
+}
+
+.income {
+    border-radius: 10px;
+    background: #bcf5bc;
+}
+
+.expense {
+    border-radius: 10px;
+    background: #FFCCCB;
+}
+
+p {
+    color: #808080;
+    margin: 25px 0 15px;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+label {
+    color: #aaa;
+    display: inline-block;
+    margin: 25px 0 15px;
+    font-size: 0.6em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.form-control {
+    display: block;
+    padding: 10px 6px;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    color: #555;
+}
+
+button {
+    background: #222222;
+    border: 0;
+    padding: 10px 20px;
+    margin-top: 20px;
+    color: white;
+    border-radius: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.control_wrapper {
+    max-width: 250px;
+    margin: 0 auto;
+}
+
+input[type="date"] {
+    background-color: #192841;
+    color: #ffffff;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+
+::-webkit-calendar-picker-indicator {
+    background-color: #ffffff;
+    cursor: pointer;
+    border-radius: 3px;
+}

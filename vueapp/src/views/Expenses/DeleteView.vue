@@ -1,35 +1,29 @@
 <template>
-    <div id="expense">
-        <h1>Expense delete - Vue</h1>
-        <h3>Are you sure you want to delete this?</h3>
-        <dl class="row" v-if="post">
-            <dt class="col-sm-2">
-                <label>ID</label>
-            </dt>
-            <dd class="col-sm-10">
-                {{ post.id }}
-            </dd>
-            <dt class="col-sm-2">
+    <div id="delete">
+        <h1>Delete transaction</h1>
+        <h3>Are you sure you want to delete this transaction?</h3>
+        <dl v-show="transactions">
+            <dt>
                 <label>Name</label>
             </dt>
-            <dd class="col-sm-10">
-                {{ post.name }}
+            <dd>
+                {{ transactions.name }}
             </dd>
-            <dt class="col-sm-2">
+            <dt>
                 <label>Amount</label>
             </dt>
-            <dd class="col-sm-10">
-                {{ post.amount }}
+            <dd>
+                {{ transactions.amount }}
             </dd>
-            <dt class="col-sm-2">
+            <dt>
                 <label>Transaction Date</label>
             </dt>
-            <dd class="col-sm-10">
-                {{ post.transactionDate }}
+            <dd>
+                {{ transactions.transactionDate }}
             </dd>
         </dl>
-        <button class="btn btn-sm btn-primary" @click="postData">Delete</button>
-        <button class="btn btn-sm btn-primary">
+        <button @click="deleteData()">Delete</button>
+        <button>
             <router-link :to="{ name: 'IndexExpenses' }">Back to List</router-link>
         </button>
     </div>
@@ -44,7 +38,7 @@
         data() {
             return {
                 loading: false,
-                post: null
+                transactions: null
             }
         },
         created() {
@@ -55,19 +49,19 @@
         },
         methods: {
             fetchData() {
-                this.post = null;
+                this.transactions = null;
                 this.loading = true;
 
                 fetch(`${uri}/${this.id}`)
                     .then(r => r.json())
                     .then(json => {
-                        this.post = json;
+                        this.transactions = json;
                         this.loading = false;
                         return
                     });
             },
 
-            async postData() {
+            async deleteData() {
                 try {
                     await fetch(`${uri}/${this.id}`, {
                         method: 'DELETE'

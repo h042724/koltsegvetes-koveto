@@ -1,8 +1,9 @@
 <template>
-    <div id="app" class="container">
-        <div class="add">
+    <div id="create">
+        <h1>Transactions create</h1>
+        <div id="create-transactions" class="transactions-body">
             <p>Add new {{ this.type }}</p>
-            <div class="add-body">
+            <div>
                 <div class="form-group">
                     <label for="name">Name:</label>
                     <input id="name" type="text" class="form-control" ref="post_name" required />
@@ -56,68 +57,5 @@
 </script>
 
 <style>
-    .add {
-        max-width: 420px;
-        margin: 30px auto;
-        background: white;
-        text-align: left;
-        padding: 40px;
-        border-radius: 10px;
-    }
-    p {
-        color: #808080;
-        margin: 25px 0 15px;
-        font-size: 0.8em;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-weight: bold;
-    }
-    label {
-        color: #aaa;
-        display: inline-block;
-        margin: 25px 0 15px;
-        font-size: 0.6em;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-weight: bold;
-    }
-    .form-control {
-        display: block;
-        padding: 10px 6px;
-        width: 100%;
-        box-sizing: border-box;
-        border: none;
-        border-bottom: 1px solid #ddd;
-        color: #555;
-    }
-    button {
-        background: #222222;
-        border: 0;
-        padding: 10px 20px;
-        margin-top: 20px;
-        color: white;
-        border-radius: 20px;
-        text-align: center;
-        cursor: pointer;
-    }
 
-    .control_wrapper {
-        max-width: 250px;
-        margin: 0 auto;
-    }
-
-    input[type="date"] {
-        background-color: #192841;
-        color: #ffffff;
-        font-size: 18px;
-        border: none;
-        outline: none;
-        border-radius: 5px;
-    }
-
-    ::-webkit-calendar-picker-indicator {
-        background-color: #ffffff;
-        cursor: pointer;
-        border-radius: 3px;
-    }
 </style>

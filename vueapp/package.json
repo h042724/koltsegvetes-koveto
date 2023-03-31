@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "bootstrap-icons": "^1.10.3",
     "core-js": "^3.8.3",
     "jest": "^29.5.0",
     "jest-editor-support": "^31.0.1",
