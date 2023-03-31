@@ -8,45 +8,5 @@
 </template>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-body {
-    margin: 0;
-    background: #eee;
-}
 
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-
-.loading {
-    margin: 70px auto;
-    width: 40px;
-    height: 40px;
-    border: 5px solid rgba(255,255,255,0.2);
-    border-radius: 50%;
-    border-top-color: #fff;
-    animation: spin 1s linear infinite;
-}
-
-@Keyframes spin {
-    100% {
-        transform: rotate(360deg);
-    }
-}
 </style>
