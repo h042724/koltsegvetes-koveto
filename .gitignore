@@ -1,0 +1,4 @@
+.vs
+vueapp/dist
+vueapp/node_modules
+.DS_Store
