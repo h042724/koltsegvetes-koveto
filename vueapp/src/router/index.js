@@ -1,11 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/HomeView.vue'
-import About from '../views/AboutView.vue'
-import IndexExpenses from '../views/Expenses/IndexView.vue'
-import CreateExpenses from '../views/Expenses/CreateView.vue'
-import EditExpenses from '../views/Expenses/EditView.vue'
-import DeleteExpenses from '../views/Expenses/DeleteView.vue'
-import DetailsExpenses from '../views/Expenses/DetailsView.vue'
+import IndexTransactions from '../views/Transactions/IndexView.vue'
+import CreateTransactions from '../views/Transactions/CreateView.vue'
+import EditTransactions from '../views/Transactions/EditView.vue'
+import DeleteTransactions from '../views/Transactions/DeleteView.vue'
+import DetailsTransactions from '../views/Transactions/DetailsView.vue'
 
 const routes = [
   {
@@ -14,37 +13,32 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    component: About
+    path: '/transactions',
+    name: 'IndexTransactions',
+    component: IndexTransactions
   },
   {
-    path: '/expenses',
-    name: 'IndexExpenses',
-    component: IndexExpenses
-  },
-  {
-    path: '/expenses/create/:type',
-    name: 'CreateExpenses',
-    component: CreateExpenses,
+    path: '/transactions/create/:type',
+    name: 'CreateTransactions',
+    component: CreateTransactions,
     props: true
   },
   {
-    path: '/expenses/edit/:type/:id',
-    name: 'EditExpenses',
-    component: EditExpenses,
+    path: '/transactions/edit/:type/:id',
+    name: 'EditTransactions',
+    component: EditTransactions,
     props: true
   },
   {
-    path: '/expenses/delete/:id',
-    name: 'DeleteExpenses',
-    component: DeleteExpenses,
+    path: '/transactions/delete/:id',
+    name: 'DeleteTransactions',
+    component: DeleteTransactions,
     props: true
   },
   {
-    path: '/expenses/details/:id',
-    name: 'DetailsExpenses',
-    component: DetailsExpenses,
+    path: '/transactions/details/:id',
+    name: 'DetailsTransactions',
+    component: DetailsTransactions,
     props: true
   },
 ]

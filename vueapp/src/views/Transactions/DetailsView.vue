@@ -21,13 +21,13 @@
                 <dd class="col-sm-10">
                     {{ transactions.transactionDate }}
                 </dd>
-                <button>
-                    <router-link :to="{ name: 'EditExpenses', params: { id: transactions.id, type: transactions.amount < 0 ? 'expense' : 'income'}}"></router-link>Edit
-                </button>
-                <button>
-                    <router-link :to="{ name: 'IndexExpenses' }"></router-link>Back to List
-                </button>
             </dl>
+            <button>
+                <router-link :to="{ name: 'EditTransactions', params: { id: transactions.id, type: transactions.amount < 0 ? 'expense' : 'income'}}">Edit</router-link>
+            </button>
+            <button>
+                <router-link :to="{ name: 'IndexTransactions' }">Back to List</router-link>
+            </button>
         </div>
         </div>
 </template>

@@ -24,7 +24,7 @@
         </dl>
         <button @click="deleteData()">Delete</button>
         <button>
-            <router-link :to="{ name: 'IndexExpenses' }">Back to List</router-link>
+            <router-link :to="{ name: 'IndexTransactions' }">Back to List</router-link>
         </button>
     </div>
 </template>
