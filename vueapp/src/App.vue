@@ -1,5 +1,8 @@
 <template>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <div class="app">
         <Sidebar />
         <router-view />
@@ -12,9 +15,10 @@
 
 <style lang="scss">
     :root {
-        --primary: #4ade80;
+        --primary: #9fc5e8;
         --grey: #64748b;
-        --dark: #1e293b;
+        --dark: #222222;
+        --dark-alt: #171717;
         --light: #eee;
         --sidebar-width: 300px;
     }
@@ -23,6 +27,7 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        font-family: 'Montserrat', sans-serif;
     }
 
     body {
