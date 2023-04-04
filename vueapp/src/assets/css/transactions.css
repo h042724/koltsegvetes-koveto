@@ -33,7 +33,7 @@
 .transactions-body {
     min-height: 100px;
     max-width: 1000px;
-    margin: 30px auto;
+    margin: auto;
     background: white;
     text-align: left;
     padding: 40px;
@@ -90,7 +90,7 @@ label {
     color: #555;
 }
 
-button {
+.transaction-button, button {
     background: #222222;
     border: 0;
     padding: 10px 20px;

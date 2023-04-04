@@ -1,5 +1,5 @@
 <template>
-    <div id="details">
+    <main id="details">
         <h1>Transactions details</h1>
         <div id="details-transactions" class="transactions-body">
             <dl v-show="transactions">
@@ -22,14 +22,14 @@
                     {{ transactions.transactionDate }}
                 </dd>
             </dl>
-            <button>
+            <button class="transaction-button">
                 <router-link :to="{ name: 'EditTransactions', params: { id: transactions.id, type: transactions.amount < 0 ? 'expense' : 'income'}}">Edit</router-link>
             </button>
-            <button>
+            <button class="transaction-button">
                 <router-link :to="{ name: 'IndexTransactions' }">Back to List</router-link>
             </button>
         </div>
-        </div>
+        </main>
 </template>
 
 <script>

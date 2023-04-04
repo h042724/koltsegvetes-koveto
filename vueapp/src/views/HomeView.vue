@@ -1,30 +1,30 @@
 <template>
-    <div class="home">
+    <main class="home">
         <h1>Homepage</h1>
-    </div>
-    <div class="post">
-        <div v-if="loading" class="loading"></div>
-        <div v-if="post" class="content">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Temp. (C)</th>
-                        <th>Temp. (F)</th>
-                        <th>Summary</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="forecast in post" :key="forecast.date">
-                        <td>{{ forecast.date }}</td>
-                        <td>{{ forecast.temperatureC }}</td>
-                        <td>{{ forecast.temperatureF }}</td>
-                        <td>{{ forecast.summary }}</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="post">
+            <div v-if="loading" class="loading"></div>
+            <div v-if="post" class="content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Temp. (C)</th>
+                            <th>Temp. (F)</th>
+                            <th>Summary</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="forecast in post" :key="forecast.date">
+                            <td>{{ forecast.date }}</td>
+                            <td>{{ forecast.temperatureC }}</td>
+                            <td>{{ forecast.temperatureF }}</td>
+                            <td>{{ forecast.summary }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+    </main>
 </template>
 
 <script>

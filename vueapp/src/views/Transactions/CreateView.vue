@@ -1,5 +1,5 @@
 <template>
-    <div id="create">
+    <main id="create">
         <h1>Transactions create</h1>
         <div id="create-transactions" class="transactions-body">
             <p>Add new {{ this.type }}</p>
@@ -16,10 +16,10 @@
                     <label for="transaction-date">Transaction date:</label>
                     <input id="transaction-date" type="date" class="form-control" ref="transactionDate" required />
                 </div>
-                <button @click="addData()">+</button>
+                <button class="transaction-button" @click="addData()">+</button>
             </div>
         </div>
-    </div>
+    </main>
 </template>
 
 <script>
@@ -47,7 +47,7 @@
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(postData),
-                    }).then(this.$router.push('/expenses'))
+                    }).then(this.$router.push('/transactions'))
                 } catch (err) {
                     alert(err); // Failed to fetch
                 }

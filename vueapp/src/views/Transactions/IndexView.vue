@@ -1,8 +1,8 @@
 <template>
-    <div id="index">
+    <main id="index">
         <h1>Transactions index</h1>
         <div id="transactions-add-router">
-            <button>+</button>
+            <button class="transaction-button">+</button>
             <div class="dropdown-content">
                 <router-link :to="{ name: 'CreateTransactions', params: { type: 'expense'}}">Add New Expense</router-link>
                 <router-link :to="{ name: 'CreateTransactions', params: { type: 'income'}}">Add New Income</router-link>
@@ -45,7 +45,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    </main>
 </template>
 
 <script>

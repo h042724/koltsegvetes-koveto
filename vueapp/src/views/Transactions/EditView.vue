@@ -1,5 +1,5 @@
 <template>
-    <div id="edit">
+    <main id="edit">
         <h1>Edit transaction</h1>
         <div id="edit-transactions" class="transactions-body" v-show="transactions">
             <div>
@@ -18,10 +18,10 @@
                     <label for="transaction-date">Transaction date:</label>
                     <input id="transaction-date" type="date" class="form-control" ref="transactionDate" :value=transactions.transactionDate required />
                 </div>
-                <button @click="editData()">Edit</button>
+                <button class="transaction-button" @click="editData()">Edit</button>
             </div>
         </div>
-    </div>
+    </main>
 </template>
 
 <script>
@@ -72,7 +72,7 @@
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(postData),
-                    }).then(this.$router.push('/expenses'))
+                    }).then(this.$router.push('/transactions'))
                         .catch(error => console.error('Unable to update item.', error));
                 } catch (err) {
                     console.log(err); // Failed to fetch
