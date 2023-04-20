@@ -2,7 +2,7 @@
 
 namespace webapi.Models
 {
-    public class Expenses
+    public class Transactions
     {
         [Key]
         public int ID { get; set; }

@@ -12,6 +12,6 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="src\views\Users\" />
+    <Folder Include="src\views\Account\" />
   </ItemGroup>
 </Project>

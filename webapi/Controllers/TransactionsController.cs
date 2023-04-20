@@ -7,52 +7,52 @@ namespace webapi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ExpensesController : Controller
+    public class TransactionsController : Controller
     {
         private readonly EFContext _context;
 
-        public ExpensesController(EFContext context)
+        public TransactionsController(EFContext context)
         {
             _context = context;
         }
 
-        // GET: Expenses
-        [HttpGet(Name = "GetExpenses")]
-        public IEnumerable<Expenses> Get()
+        // GET: Transactions
+        [HttpGet(Name = "GetTransactions")]
+        public IEnumerable<Transactions> Get()
         {
-              return _context.expenses.ToArray();
+              return _context.transactions.ToArray();
         }
 
-        // GET: Expenses/Details/5
+        // GET: Transactions/Details/5
         [HttpGet("{id:int}")]
-        public Expenses Details(int id)
+        public Transactions Details(int id)
         {
-            return _context.expenses.FirstOrDefault(m => m.ID == id);
+            return _context.transactions.FirstOrDefault(m => m.ID == id);
         }
 
 
-        // POST: Expenses/Create
+        // POST: Transactions/Create
         [HttpPost("{type}")]
-        public async Task<IActionResult> Create(string type, [Bind("ID,Name,Amount,TransactionDate")] Expenses expenses)
+        public async Task<IActionResult> Create(string type, [Bind("ID,Name,Amount,TransactionDate")] Transactions transactions)
         {
             if (ModelState.IsValid)
             {
                 if(type == "expense")
                 {
-                    expenses.Amount *= -1;
+                    transactions.Amount *= -1;
                 } 
-                _context.Add(expenses);
+                _context.Add(transactions);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(expenses);
+            return View(transactions);
         }
 
-        // POST: Expenses/Edit/5
+        // POST: Transactions/Edit/5
         [HttpPost("edit/{type}/{id}")]
-        public async Task<IActionResult> Edit(string type, int id, [Bind("ID,Name,Amount,TransactionDate")] Expenses expenses)
+        public async Task<IActionResult> Edit(string type, int id, [Bind("ID,Name,Amount,TransactionDate")] Transactions transactions)
         {
-            if (id != expenses.ID)
+            if (id != transactions.ID)
             {
                 return NotFound();
             }
@@ -61,16 +61,16 @@ namespace webapi.Controllers
             {
                 if (type == "expense")
                 {
-                    expenses.Amount *= -1;
+                    transactions.Amount *= -1;
                 }
                 try
                 {
-                    _context.Update(expenses);
+                    _context.Update(transactions);
                     await _context.SaveChangesAsync();
                 }   
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ExpensesExists(expenses.ID))
+                    if (!TransactionsExists(transactions.ID))
                     {
                         return NotFound();
                     }
@@ -81,30 +81,30 @@ namespace webapi.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(expenses);
+            return View(transactions);
         }
 
 
-        // DELETE: Expenses/Delete/5
+        // DELETE: Transactions/Delete/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.expenses == null)
+            if (_context.transactions == null)
             {
-                return Problem("Entity set 'EFContext.expenses'  is null.");
+                return Problem("Entity set 'EFContext.transactions'  is null.");
             }
-            var expenses = await _context.expenses.FindAsync(id);
-            if (expenses != null)
+            var transactions = await _context.transactions.FindAsync(id);
+            if (transactions != null)
             {
-                _context.expenses.Remove(expenses);
+                _context.transactions.Remove(transactions);
             }
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ExpensesExists(int id)
+        private bool TransactionsExists(int id)
         {
-          return (_context.expenses?.Any(e => e.ID == id)).GetValueOrDefault();
+          return (_context.transactions?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }

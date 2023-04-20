@@ -9,7 +9,7 @@ namespace webapi.Context
         public EFContext(DbContextOptions options) : base(options)
         {  }
 
-        public DbSet<Expenses> expenses { get; set; }
+        public DbSet<Transactions> transactions { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
