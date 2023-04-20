@@ -1,3 +1,4 @@
+using webapi;
 using webapi.Context;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<EFContext>();
+
+builder.Services.AddAuthentication();   
+builder.Services.ConfigureIdentity();   
 
 var app = builder.Build();
 
