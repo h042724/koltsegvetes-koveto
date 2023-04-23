@@ -10,14 +10,14 @@ namespace webapi.Controllers
     public class AccountController : ControllerBase
     {
         private readonly UserManager<ApiUser> _userManager;
-        //private readonly SignInManager<ApiUser> _signInManager;
+        private readonly SignInManager<ApiUser> _signInManager;
         private readonly ILogger<AccountController> _logger;
         private readonly IMapper _mapper;
 
-        public AccountController(UserManager<ApiUser> userManager, ILogger<AccountController> logger, IMapper mapper)  
+        public AccountController(UserManager<ApiUser> userManager, SignInManager<ApiUser> signInManager, ILogger<AccountController> logger, IMapper mapper)  
         {
             _userManager = userManager;
-            //_signInManager = signInManager;
+            _signInManager = signInManager;
             _logger = logger;
             _mapper = mapper;
         }
@@ -37,7 +37,7 @@ namespace webapi.Controllers
             {
                 var user = _mapper.Map<ApiUser>(userDTO);
                 user.UserName = userDTO.Email;
-                var result = await _userManager.CreateAsync(user, userDTO.Password);
+                var result = await _userManager.CreateAsync(user);
 
                 if (!result.Succeeded)
                 {
@@ -49,6 +49,7 @@ namespace webapi.Controllers
                     return BadRequest(ModelState);
                 }
 
+                await _userManager.AddToRolesAsync(user, userDTO.Roles);
                 return Accepted();
             }
             catch (Exception ex)
@@ -58,9 +59,9 @@ namespace webapi.Controllers
             }
         }
 
-        /*[HttpPost]
+        [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] ApiUser apiUser)
+        public async Task<IActionResult> Login([FromBody] LoginUserDTO userDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -68,11 +69,11 @@ namespace webapi.Controllers
             }
             try
             {
-                var result = await _signInManager.PasswordSignInAsync(apiUser.Email, apiUser.Password, false, false);
+                var result = await _signInManager.PasswordSignInAsync(userDTO.Email, userDTO.Password, false, false);
 
                 if (!result.Succeeded)
                 {
-                    return Unauthorized(apiUser);
+                    return Unauthorized(userDTO);
                 }
 
                 return Accepted();
@@ -81,6 +82,6 @@ namespace webapi.Controllers
             {
                 return Problem($"Something went wrong in the {nameof(Login)}", statusCode: 500);
             }
-        }*/
+        }
     }
 }

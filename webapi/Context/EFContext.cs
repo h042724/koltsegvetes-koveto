@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using webapi.Configurations.Entities;
 using webapi.Models;
 
 namespace webapi.Context
@@ -19,6 +20,8 @@ namespace webapi.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.ApplyConfiguration(new RoleConfiguration());
         }
     }
 }
