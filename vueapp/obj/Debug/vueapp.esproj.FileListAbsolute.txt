@@ -4,3 +4,5 @@ C:\Users\bajna\Desktop\temp\koltsegvetes-koveto\vueapp\obj\Debug\vueapp.esproj.S
 C:\Users\bajna\Desktop\temp\koltsegvetes-koveto\vueapp\obj\Debug\vueapp.esproj.CoreCompileInputs.cache
 C:\Users\bajna\Desktop\vue-route\koltsegvetes-koveto\vueapp\obj\Debug\vueapp.esproj.SuggestedBindingRedirects.cache
 C:\Users\bajna\Desktop\vue-route\koltsegvetes-koveto\vueapp\obj\Debug\vueapp.esproj.CoreCompileInputs.cache
+C:\Users\bajna\Desktop\login-signup\koltsegvetes-koveto\vueapp\obj\Debug\vueapp.esproj.SuggestedBindingRedirects.cache
+C:\Users\bajna\Desktop\login-signup\koltsegvetes-koveto\vueapp\obj\Debug\vueapp.esproj.CoreCompileInputs.cache

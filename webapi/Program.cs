@@ -1,4 +1,5 @@
 using webapi;
+using webapi.Configurations;
 using webapi.Context;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ builder.Services.AddDbContext<EFContext>();
 
 builder.Services.AddAuthentication();   
 builder.Services.ConfigureIdentity();   
+
+builder.Services.AddAutoMapper(typeof(MapperInitializer));
 
 var app = builder.Build();
 

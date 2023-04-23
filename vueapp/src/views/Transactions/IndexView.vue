@@ -44,6 +44,8 @@
 </template>
 
 <script>
+    const uri = 'https://localhost:7007/transactions';
+
     export default {
         name: 'IndexView',
         components: {},
@@ -64,7 +66,7 @@
                 this.transactions = null;
                 this.loading = true;
 
-                fetch('expenses')
+                fetch(`${uri}`)
                     .then(r => r.json())
                     .then(json => {
                         this.transactions = json;

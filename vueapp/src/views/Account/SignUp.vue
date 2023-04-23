@@ -24,32 +24,34 @@
                     <label for="confirm-password">Confirm password:</label>
                     <input id="confirm-password" type="password" class="form-control" ref="confirmPassword" required />
                 </div>
-                <button class="transaction-button" @click="addData()">Sign Up</button>
+                <button class="transaction-button" @click="addUser()">Sign Up</button>
             </div>
         </div>
     </main>
 </template>
 
 <script>
-    const uri = 'https://localhost:7007/expenses';
+    const uri = 'https://localhost:7007/account';
 
     export default {
-        name: "LoginView",
+        name: "SignUpView",
         mounted() {
+            this.$refs.firstname.focus()
+            this.$refs.lastname.focus()
             this.$refs.email.focus()
             this.$refs.password.focus()
-            this.$refs.confirmPassword.focus()
         },
         methods: {
-            async addData() {
+            async addUser() {
                 const postData = {
+                    firstName: this.$refs.firstname.value,
+                    lastName: this.$refs.lastname.value,
                     email: this.$refs.email.value,
-                    password: this.$refs.password.value,
-                    confirmPassword: this.$refs.confirmPassword.value
+                    password: this.$refs.password.value
                 };
 
                 try {
-                    await fetch(`${uri}/`, {
+                    await fetch(`${uri}/signup`, {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',
@@ -57,8 +59,9 @@
                         },
                         body: JSON.stringify(postData),
                     }).then(this.$router.push('/transactions'))
+                      .catch(err => console.log(err))
                 } catch (err) {
-                    alert(err);
+                    console.log(err);
                 }
             },
         }

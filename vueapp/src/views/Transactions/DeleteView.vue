@@ -30,7 +30,7 @@
 </template>
 
 <script>
-    const uri = 'https://localhost:7007/expenses';
+    const uri = 'https://localhost:7007/transactions';
 
     export default {
         name: "DeleteView",
