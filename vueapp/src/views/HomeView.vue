@@ -1,64 +1,270 @@
 <template>
-    <main class="home">
-        <h1>Homepage</h1>
-        <div class="post">
-            <div v-if="loading" class="loading"></div>
-            <div v-if="post" class="content">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Temp. (C)</th>
-                            <th>Temp. (F)</th>
-                            <th>Summary</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="forecast in post" :key="forecast.date">
-                            <td>{{ forecast.date }}</td>
-                            <td>{{ forecast.temperatureC }}</td>
-                            <td>{{ forecast.temperatureF }}</td>
-                            <td>{{ forecast.summary }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+    <div class="main-block">
+        <app-container>
+            <div class="main-block__wrapper">
+                <div class="main-block__info">
+                    <h1 ref="title"
+                        class="main-block__title">
+                        If you're looking for a  <span>simple</span> and <span>effective</span> way to <span>manage your money</span>, look no further than this app!
+                    </h1>
+                    <div ref="description"
+                         class="main-block__description">
+                        This app helps you track your incomes and expenses, analyze your spending patterns and set realistic budgeting goals for the month.
+                        You can see how much you can afford to spend, how much you need to save and how you can optimize your finances.
+                        Whether you want to plan for the future, reduce your debt or just enjoy your money, this app will make it easy for you.
+                        Try this app now and discover the power of budgeting!
+                    </div>
+                    <div ref="button"
+                         class="main-block__btn">
+                        <AppButton ref="button"
+                                   text="Sign Up Now!"
+                                   color="coral"
+                                   size="medium"
+                                   class="main-block__button" />
+                        <span>Already have an account?</span>
+                        <AppButton ref="button"
+                                   text="Sign In Here!"
+                                   color="coral"
+                                   size="medium"
+                                   class="main-block__button" />
+                    </div>
+                    <!-- <div ref="trustpilot"
+                         class="main-block__trustpilot">
+                        <p class="main-block__trustpilot-title">Trustpilot</p>
+                        <p class="main-block__trustpilot-txt"><span>4.8 out of 5</span> based on 2000+ reviews</p>
+                    </div> -->
+                </div>
+                <div ref="image"
+                     class="main-block__image"></div>
             </div>
-        </div>
-    </main>
+        </app-container>
+    </div>
 </template>
 
 <script>
-export default {
-    name: 'HomeView',
-    components: {},
-    data() {
-        return {
-        loading: false,
-        post: null
-        };
-    },
-    created() {
-        // fetch the data when the view is created and the data is
-        // already being observed
-        this.fetchData();
-    },
-    watch: {
-        // call again the method if the route changes
-        '$route': 'fetchData'
-    },
-    methods: {
-        fetchData() {
-        this.post = null;
-        this.loading = true;
+    import AppContainer from "@/components/components/AppContainer.vue";
+    import AppButton from "@/components/components/AppButton.vue";
+    import { gsap } from 'gsap';
 
-        fetch('weatherforecast')
-            .then(r => r.json())
-            .then(json => {
-                this.post = json;
-                this.loading = false;
-                return;
-            });
+    export default {
+        name: 'HomeView',
+
+        components: {
+            AppContainer,
+            AppButton
+        },
+
+        mounted() {
+            this.AnimationMainBlock();
+        },
+
+        methods: {
+            AnimationMainBlock() {
+                const title = this.$refs.title;
+                const description = this.$refs.description;
+                const button = this.$refs.button;
+                const trustpilot = this.$refs.trustpilot;
+                const image = this.$refs.image;
+
+                gsap.to(title, {
+                    opacity: '1',
+                    x: 0,
+                    duration: 0.1,
+                });
+                gsap.to(description, {
+                    opacity: '1',
+                    x: 0,
+                    duration: 0.2,
+                });
+                gsap.to(button, {
+                    opacity: '1',
+                    x: 0,
+                    duration: 0.3,
+                });
+                gsap.to(trustpilot, {
+                    opacity: '1',
+                    x: 0,
+                    duration: 0.4,
+                });
+                gsap.to(image, {
+                    opacity: '1',
+                    duration: 0.6,
+                    delay: 0.6
+                });
+            }
         }
-    },
-}
+
+    }
 </script>
+
+<style lang="scss">
+    .main-block {
+        background: url("../assets/images/bg-shape-left.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        &__wrapper {
+            display: flex;
+            justify-content: space-between;
+
+            @media screen and (max-width: 768px) {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        &__info {
+            width: 594px;
+            margin-top: 48px;
+
+            @media screen and (max-width: 1200px) {
+                width: 400px;
+            }
+
+            @media screen and (max-width: 768px) {
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+
+        &__title {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 48px;
+            line-height: 60px;
+            letter-spacing: 1.8px;
+            color: #08090A;
+            margin-bottom: 27px;
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all .5s linear;
+
+            & span {
+                color: #9fc5e8;
+            }
+
+            @media screen and (max-width: 768px) {
+                font-size: 48px;
+            }
+
+            @media screen and (max-width: 576px) {
+                font-size: 38px;
+                text-align: center;
+            }
+        }
+
+        &__description {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 24px;
+            letter-spacing: 0.36px;
+            color: #546285;
+            width: 500px;
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all .5s linear;
+
+            @media screen and (max-width: 1200px) {
+                width: 400px;
+            }
+
+            @media screen and (max-width: 768px) {
+                font-size: 16px;
+            }
+
+            @media screen and (max-width: 576px) {
+                width: 100%;
+                font-size: 14px;
+                text-align: center;
+            }
+        }
+
+        &__btn {
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all .5s linear;
+        }
+
+        &__button {
+            margin-top: 53px;
+            margin-bottom: 40px;
+
+            @media screen and (max-width: 768px) {
+                width: 86%;
+            }
+
+            @media screen and (max-width: 576px) {
+                width: 80%;
+                margin: 20px 0;
+            }
+        }
+
+        &__trustpilot {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all .5s linear;
+
+            &-title {
+                font-style: normal;
+                font-weight: 600;
+                font-size: 18px;
+                line-height: 20px;
+                color: #000;
+                margin: 0 0 10px 30px;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: -6px;
+                    left: 0;
+                    width: 25px;
+                    height: 26px;
+                    background: url("../assets/images/icon-star.png");
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                }
+            }
+
+            &-txt {
+                font-style: normal;
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 20px;
+                color: #08090A;
+                margin: 0;
+
+                & span {
+                    color: #35B8BE;
+                }
+            }
+        }
+
+        &__image {
+            width: 600px;
+            height: 580px;
+            background: url("../assets/images/main-image-delivered.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin-top: 100px;
+            margin-bottom: 140px;
+            opacity: 0;
+            transition: all .5s linear;
+
+            @media screen and (max-width: 1200px) {
+                width: 500px;
+                height: 544px;
+            }
+
+            @media screen and (max-width: 576px) {
+                width: 100%;
+                background-position-x: center;
+                border-radius: 10px;
+                margin: 50px 0;
+            }
+        }
+    }
+</style>
