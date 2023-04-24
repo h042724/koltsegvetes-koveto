@@ -10,16 +10,16 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input id="password" type="text" class="form-control" ref="password" required />
+                    <input id="password" type="password" class="form-control" ref="password" required />
                 </div>
-                <button class="transaction-button" @click="addData()">Login</button>
+                <button class="transaction-button" @click="login()">Login</button>
             </div>
         </div>
     </main>
 </template>
 
 <script>
-    const uri = 'https://localhost:7007/expenses';
+    const uri = 'https://localhost:7007/account';
 
     export default {
         name: "LoginView",
@@ -28,23 +28,24 @@
             this.$refs.password.focus()
         },
         methods: {
-            async addData() {
+            async login() {
                 const postData = {
                     email: this.$refs.email.value,
                     password: this.$refs.password.value
                 };
 
                 try {
-                    await fetch(`${uri}/`, {
+                    const response = await fetch(`${uri}/login`, {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify(postData),
+                        body: JSON.stringify(postData)
                     }).then(this.$router.push('/transactions'))
+                      .catch(err => console.log(err))
                 } catch (err) {
-                    alert(err);
+                    console.log(err);
                 }
             },
         }

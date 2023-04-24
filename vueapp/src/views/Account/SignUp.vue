@@ -47,7 +47,10 @@
                     firstName: this.$refs.firstname.value,
                     lastName: this.$refs.lastname.value,
                     email: this.$refs.email.value,
-                    password: this.$refs.password.value
+                    password: this.$refs.password.value,
+                    roles: [
+                        "User"
+                    ]
                 };
 
                 try {
@@ -58,7 +61,8 @@
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(postData),
-                    }).then(this.$router.push('/transactions'))
+                    //}).then(console.log(postData))
+                    }).then(this.$router.push('/login'))
                       .catch(err => console.log(err))
                 } catch (err) {
                     console.log(err);
