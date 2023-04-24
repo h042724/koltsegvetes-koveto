@@ -35,21 +35,41 @@
                 };
 
                 try {
-                    const response = await fetch(`${uri}/login`, {
+                    await fetch(`${uri}/login`, {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(postData)
-                    }).then(this.$router.push('/transactions'))
-                      .catch(err => console.log(err))
-                } catch (err) {
-                    console.log(err);
-                }
-            },
+                    }).then((response) => response.body)
+                        .then((rb) => {
+                            const reader = rb.getReader();
+                            return new ReadableStream({
+                                start(controller) {
+                                function push() {
+                                    reader.read().then(({ done, value }) => {
+                                    if (done) {
+                                        controller.close();
+                                        return;
+                                    }
+                                    controller.enqueue(value);
+                                    push();
+                                    });
+                                }
+                                push();
+                                },
+                            });
+                        })
+                        .then((stream) => new Response(stream, { headers: { "Content-Type": "text/html" } }).text()
+                        )
+                        .then((result) => localStorage.setItem("user", JSON.parse(result).token));
+                    } catch (err) {
+                        console.log(err);
+                    }
+                },
+            }
         }
-    }
 </script>
 
 <style>

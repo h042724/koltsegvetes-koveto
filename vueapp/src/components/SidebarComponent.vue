@@ -33,6 +33,10 @@
                 <span class="material-icons">settings</span>
                 <span class="text">Settings</span>
             </router-link>
+            <router-link class="button" to="/" @click="signOut">
+                <span class="material-icons">logout</span>
+                <span class="text">Log out</span>
+            </router-link>
         </div>
     </aside>
 </template>
@@ -42,9 +46,13 @@
 
     const is_expanded = ref(localStorage.getItem("is_expanded") === "true")
 
-    const ToggleMenu = () => {
+    function ToggleMenu() {
         is_expanded.value = !is_expanded.value
         localStorage.setItem("is_expanded", is_expanded.value);
+    }
+
+    function signOut() {
+        localStorage.setItem("user", null);
     }
 </script>
 
