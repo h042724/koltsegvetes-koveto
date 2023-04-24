@@ -1,7 +1,8 @@
 <template>
-    <div class="button"
-         :class="classes">
-        {{ text }}
+    <div class="button" :class="classes">
+        <router-link :to=routeTo>
+            {{ text }}
+        </router-link>
     </div>
 </template>
 
@@ -23,7 +24,12 @@ export default {
         size: {
             type: String,
             default: ''
-        }
+        },
+
+        routeTo: {
+            type: String,
+            default: ''
+        },
     },
 
     computed: {
@@ -46,6 +52,11 @@ export default {
         text-align: center;
         transition: all .3s linear;
         cursor: pointer;
+
+        a {
+            color: inherit;
+            text-decoration: inherit;
+        }
     }
 
     .coral {

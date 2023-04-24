@@ -98,7 +98,12 @@ label {
     color: white;
     border-radius: 20px;
     text-align: center;
-    cursor: pointer;
+    cursor: pointer;   
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
 }
 
 .control_wrapper {

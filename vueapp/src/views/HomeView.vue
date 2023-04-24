@@ -20,12 +20,14 @@
                                    text="Sign Up Now!"
                                    color="coral"
                                    size="medium"
+                                   routeTo="/signup"
                                    class="main-block__button" />
                         <span>Already have an account?</span>
                         <AppButton ref="button"
                                    text="Sign In Here!"
                                    color="coral"
                                    size="medium"
+                                   routeTo="/login"
                                    class="main-block__button" />
                     </div>
                     <!-- <div ref="trustpilot"
