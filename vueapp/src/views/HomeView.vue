@@ -22,7 +22,6 @@
                                    size="medium"
                                    routeTo="/signup"
                                    class="main-block__button" />
-                        <span>Already have an account?</span>
                         <AppButton ref="button"
                                    text="Sign In Here!"
                                    color="coral"
@@ -186,6 +185,8 @@
             opacity: 0;
             transform: translateX(-100px);
             transition: all .5s linear;
+            display: flex;
+            justify-content: space-evenly;
         }
 
         &__button {

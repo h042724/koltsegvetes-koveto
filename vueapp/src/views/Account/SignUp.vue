@@ -6,15 +6,15 @@
             <div>
                 <div class="form-group">
                     <label for="firstname">First name:</label>
-                    <input id="firstname" type="text" class="form-control" ref="firstname" required />
+                    <input id="firstname" type="text" class="form-control" ref="firstname" required autocomplete="off"/>
                 </div>
                 <div class="form-group">
                     <label for="lastname">Last name:</label>
-                    <input id="lastname" type="text" class="form-control" ref="lastname" required />
+                    <input id="lastname" type="text" class="form-control" ref="lastname" required autocomplete="off"/>
                 </div>
                 <div class="form-group">
                     <label for="email">E-mail:</label>
-                    <input id="email" type="text" class="form-control" ref="email" required />
+                    <input id="email" type="text" class="form-control" ref="email" required autocomplete="off"/>
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>

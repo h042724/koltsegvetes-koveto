@@ -6,7 +6,7 @@
             <div>
                 <div class="form-group">
                     <label for="email">E-mail:</label>
-                    <input id="email" type="text" class="form-control" ref="email" required />
+                    <input id="email" type="text" class="form-control" ref="email" required autocomplete="off"/>
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
@@ -63,7 +63,8 @@
                         })
                         .then((stream) => new Response(stream, { headers: { "Content-Type": "text/html" } }).text()
                         )
-                        .then((result) => localStorage.setItem("user", JSON.parse(result).token));
+                        .then((result) => localStorage.setItem("user", JSON.parse(result).token))
+                        .then(this.$router.push('/transactions'));
                     } catch (err) {
                         console.log(err);
                     }

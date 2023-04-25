@@ -8,11 +8,11 @@
                 </div>
                 <div class="form-group">
                     <label for="name">Name:</label>
-                    <input id="name" type="text" class="form-control" ref="name" :value=transactions.name />
+                    <input id="name" type="text" class="form-control" ref="name" :value=transactions.name autocomplete="off"/>
                 </div>
                 <div class="form-group">
                     <label for="amount">Amount:</label>
-                    <input id="amount" type="text" class="form-control" ref="amount" :value=Math.abs(transactions.amount) />
+                    <input id="amount" type="text" class="form-control" ref="amount" :value=Math.abs(transactions.amount) autocomplete="off"/>
                 </div>
                 <div class="form-group">
                     <label for="transaction-date">Transaction date:</label>

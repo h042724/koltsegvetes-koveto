@@ -6,11 +6,11 @@
             <div>
                 <div class="form-group">
                     <label for="name">Name:</label>
-                    <input id="name" type="text" class="form-control" ref="post_name" required />
+                    <input id="name" type="text" class="form-control" ref="post_name" required autocomplete="off"/>
                 </div>
                 <div class="form-group">
                     <label for="amount">Amount:</label>
-                    <input id="amount" type="text" class="form-control" ref="post_amount" required />
+                    <input id="amount" type="text" class="form-control" ref="post_amount" required autocomplete="off"/>
                 </div>
                 <div class="form-group">
                     <label for="transaction-date">Transaction date:</label>
