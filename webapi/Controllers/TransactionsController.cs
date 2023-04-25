@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using webapi.Context;
 using webapi.Models;
@@ -17,10 +18,12 @@ namespace webapi.Controllers
         }
 
         // GET: Transactions
+        [Authorize]
         [HttpGet(Name = "GetTransactions")]
         public IEnumerable<Transactions> Get()
         {
-              return _context.transactions.ToArray();
+              //return _context.transactions.ToArray();
+              return _context.transactions.Include(u => u.ReferencedCategory);
         }
 
         // GET: Transactions/Details/5

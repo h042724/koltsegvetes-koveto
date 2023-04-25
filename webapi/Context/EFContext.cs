@@ -7,10 +7,10 @@ namespace webapi.Context
 {
     public class EFContext : IdentityDbContext<ApiUser>
     {
-        public EFContext(DbContextOptions options) : base(options)
-        {  }
+        public EFContext(DbContextOptions options) : base(options) {  }
 
         public DbSet<Transactions> transactions { get; set; }
+        public DbSet<Category> category { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -22,6 +22,7 @@ namespace webapi.Context
             base.OnModelCreating(builder);
 
             builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
         }
     }
 }

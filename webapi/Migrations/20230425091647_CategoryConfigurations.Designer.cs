@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using webapi.Context;
 
@@ -10,9 +11,11 @@ using webapi.Context;
 namespace webapi.Migrations
 {
     [DbContext(typeof(EFContext))]
-    partial class EFContextModelSnapshot : ModelSnapshot
+    [Migration("20230425091647_CategoryConfigurations")]
+    partial class CategoryConfigurations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
@@ -45,19 +48,19 @@ namespace webapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b8b1fed5-b777-41de-9036-a32be2e1a4b2",
+                            Id = "a31d8de7-8e88-4839-b98e-14cf4b847693",
                             Name = "Guest",
                             NormalizedName = "GUEST"
                         },
                         new
                         {
-                            Id = "2d38d26f-5f05-46d0-8b9a-ec96449f5714",
+                            Id = "48d132fd-5769-48c3-b48e-4fd5a4fbf6ab",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "65f153ec-b6fb-41a2-b969-8ca1ec5285b1",
+                            Id = "3df52fbb-d560-4b87-8aee-7d338f079669",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -247,10 +250,6 @@ namespace webapi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("IconName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -264,42 +263,36 @@ namespace webapi.Migrations
                         {
                             ID = 1,
                             ExpenseOrIncome = "expense",
-                            IconName = "nutrition",
                             Name = "Grocery"
                         },
                         new
                         {
                             ID = 2,
                             ExpenseOrIncome = "expense",
-                            IconName = "directions_car",
                             Name = "Transportation"
                         },
                         new
                         {
                             ID = 3,
                             ExpenseOrIncome = "expense",
-                            IconName = "attractions",
                             Name = "Entertainment"
                         },
                         new
                         {
                             ID = 4,
                             ExpenseOrIncome = "income",
-                            IconName = "payments",
                             Name = "Salary"
                         },
                         new
                         {
                             ID = 5,
                             ExpenseOrIncome = "income",
-                            IconName = "monetization_on",
                             Name = "Investments"
                         },
                         new
                         {
                             ID = 6,
                             ExpenseOrIncome = "income",
-                            IconName = "real_estate_agent",
                             Name = "Rental"
                         });
                 });

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using webapi.Context;
 
@@ -10,9 +11,11 @@ using webapi.Context;
 namespace webapi.Migrations
 {
     [DbContext(typeof(EFContext))]
-    partial class EFContextModelSnapshot : ModelSnapshot
+    [Migration("20230425065951_CategoryFK")]
+    partial class CategoryFK
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
@@ -45,19 +48,19 @@ namespace webapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b8b1fed5-b777-41de-9036-a32be2e1a4b2",
+                            Id = "9b893d6e-58dd-45b3-81e8-d2592481b8ef",
                             Name = "Guest",
                             NormalizedName = "GUEST"
                         },
                         new
                         {
-                            Id = "2d38d26f-5f05-46d0-8b9a-ec96449f5714",
+                            Id = "a50637b8-fe6f-4491-bc3c-dbc64a736869",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "65f153ec-b6fb-41a2-b969-8ca1ec5285b1",
+                            Id = "3c481baa-50f6-4942-bc07-6080a9ff1100",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -247,10 +250,6 @@ namespace webapi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("IconName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -258,50 +257,6 @@ namespace webapi.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("category");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            ExpenseOrIncome = "expense",
-                            IconName = "nutrition",
-                            Name = "Grocery"
-                        },
-                        new
-                        {
-                            ID = 2,
-                            ExpenseOrIncome = "expense",
-                            IconName = "directions_car",
-                            Name = "Transportation"
-                        },
-                        new
-                        {
-                            ID = 3,
-                            ExpenseOrIncome = "expense",
-                            IconName = "attractions",
-                            Name = "Entertainment"
-                        },
-                        new
-                        {
-                            ID = 4,
-                            ExpenseOrIncome = "income",
-                            IconName = "payments",
-                            Name = "Salary"
-                        },
-                        new
-                        {
-                            ID = 5,
-                            ExpenseOrIncome = "income",
-                            IconName = "monetization_on",
-                            Name = "Investments"
-                        },
-                        new
-                        {
-                            ID = 6,
-                            ExpenseOrIncome = "income",
-                            IconName = "real_estate_agent",
-                            Name = "Rental"
-                        });
                 });
 
             modelBuilder.Entity("webapi.Models.Transactions", b =>

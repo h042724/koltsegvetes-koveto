@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace webapi.Models
 {
@@ -12,5 +13,12 @@ namespace webapi.Models
         public int Amount { get; set; }
         [Required]  
         public DateOnly TransactionDate { get; set; }
+
+        // Foreign key   
+        [Display(Name = "Category")]
+        [ForeignKey("ReferencedCategory")]
+        public virtual int CategoryID { get; set; }
+
+        public virtual Category? ReferencedCategory { get; set; }
     }
 }

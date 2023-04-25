@@ -1,5 +1,6 @@
 <template>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />    <main id="index">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />    
+    <main id="index">
         <h1>Transactions index</h1>
         <div id="transactions-add-router">
             <button class="transaction-button">
@@ -16,8 +17,9 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Amount</th>
+                        <th>Amount ($)</th>
                         <th>Transaction date</th>
+                        <th>Category</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,6 +27,10 @@
                         <td>{{ item.name }}</td>
                         <td>{{ item.amount }}</td>
                         <td>{{ item.transactionDate }}</td>
+                        <td>
+                            <span class="material-symbols-outlined">{{ item.referencedCategory.iconName }}</span>
+                            {{ item.referencedCategory.name }}
+                        </td>
                         <td>
                             <router-link :to="{ name: 'EditTransactions', params: { id: item.id, type: item.amount < 0 ? 'expense' : 'income'}}">
                                 <span class="material-symbols-outlined">edit</span>
@@ -52,7 +58,8 @@
         data() {
             return {
                 loading: false,
-                transactions: null
+                transactions: null,
+                category: null
             };
         },
         created() {
@@ -70,9 +77,17 @@
                     .then(r => r.json())
                     .then(json => {
                         this.transactions = json;
+                        //this.transactions[0].categoryName = "Grocery";
                         this.loading = false;
                         return
                     });
+
+                /*fetch('https://localhost:7007/categories/1')
+                    .then(r => r.json())
+                    .then(json => {
+                        this.category = json;
+                        return
+                    });*/
             }
         },
     }
