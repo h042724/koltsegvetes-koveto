@@ -17,7 +17,8 @@
                     <input id="email" type="text" class="form-control" ref="email" required autocomplete="off"/>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password:</label>
+                    <label for="password">Password:</label> <br>
+                    <span>Passwords must have at least one digit, one uppercase and one non alphanumeric character and be at least 6 characters long.</span>
                     <input id="password" type="password" class="form-control" ref="password" required />
                 </div>
                 <div class="form-group">

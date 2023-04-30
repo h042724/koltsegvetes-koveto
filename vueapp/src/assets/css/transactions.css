@@ -131,3 +131,13 @@ input[type="date"] {
     cursor: pointer;
     border-radius: 3px;
 }
+
+span {
+    color: red;
+    display: inline-block;
+    margin: 0 0 15px;
+    font-size: 0.6em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
