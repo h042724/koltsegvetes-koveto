@@ -132,7 +132,7 @@ input[type="date"] {
     border-radius: 3px;
 }
 
-span {
+#pw-req {
     color: red;
     display: inline-block;
     margin: 0 0 15px;

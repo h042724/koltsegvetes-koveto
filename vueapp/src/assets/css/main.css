@@ -13,3 +13,7 @@
         transform: rotate(360deg);
     }
 }
+
+main {
+    background: url("../../assets/images/bg-shape-left.png");
+}
