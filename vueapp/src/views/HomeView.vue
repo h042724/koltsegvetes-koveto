@@ -29,11 +29,6 @@
                                    routeTo="/login"
                                    class="main-block__button" />
                     </div>
-                    <!-- <div ref="trustpilot"
-                         class="main-block__trustpilot">
-                        <p class="main-block__trustpilot-title">Trustpilot</p>
-                        <p class="main-block__trustpilot-txt"><span>4.8 out of 5</span> based on 2000+ reviews</p>
-                    </div> -->
                 </div>
                 <div ref="image"
                      class="main-block__image"></div>
@@ -64,33 +59,27 @@
                 const title = this.$refs.title;
                 const description = this.$refs.description;
                 const button = this.$refs.button;
-                const trustpilot = this.$refs.trustpilot;
                 const image = this.$refs.image;
 
                 gsap.to(title, {
                     opacity: '1',
-                    x: 0,
-                    duration: 0.1,
+                    y: -50,
+                    duration: 0.2,
                 });
                 gsap.to(description, {
                     opacity: '1',
-                    x: 0,
+                    y: -50,
                     duration: 0.2,
                 });
                 gsap.to(button, {
                     opacity: '1',
-                    x: 0,
+                    y: -50,
                     duration: 0.3,
-                });
-                gsap.to(trustpilot, {
-                    opacity: '1',
-                    x: 0,
-                    duration: 0.4,
                 });
                 gsap.to(image, {
                     opacity: '1',
-                    duration: 0.6,
-                    delay: 0.6
+                    y: -50,
+                    duration: 0.3
                 });
             }
         }
@@ -137,7 +126,7 @@
             color: #08090A;
             margin-bottom: 27px;
             opacity: 0;
-            transform: translateX(-100px);
+            transform: translateY(100px);
             transition: all .5s linear;
 
             & span {
@@ -163,7 +152,7 @@
             color: #546285;
             width: 500px;
             opacity: 0;
-            transform: translateX(-100px);
+            transform: translateY(100px);
             transition: all .5s linear;
 
             @media screen and (max-width: 1200px) {
@@ -183,7 +172,7 @@
 
         &__btn {
             opacity: 0;
-            transform: translateX(-100px);
+            transform: translateY(100px);
             transition: all .5s linear;
             display: flex;
             justify-content: space-evenly;
@@ -200,49 +189,6 @@
             @media screen and (max-width: 576px) {
                 width: 80%;
                 margin: 20px 0;
-            }
-        }
-
-        &__trustpilot {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            opacity: 0;
-            transform: translateX(-100px);
-            transition: all .5s linear;
-
-            &-title {
-                font-style: normal;
-                font-weight: 600;
-                font-size: 18px;
-                line-height: 20px;
-                color: #000;
-                margin: 0 0 10px 30px;
-
-                &::before {
-                    content: '';
-                    position: absolute;
-                    top: -6px;
-                    left: 0;
-                    width: 25px;
-                    height: 26px;
-                    background: url("../assets/images/icon-star.png");
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                }
-            }
-
-            &-txt {
-                font-style: normal;
-                font-weight: 400;
-                font-size: 16px;
-                line-height: 20px;
-                color: #08090A;
-                margin: 0;
-
-                & span {
-                    color: #35B8BE;
-                }
             }
         }
 

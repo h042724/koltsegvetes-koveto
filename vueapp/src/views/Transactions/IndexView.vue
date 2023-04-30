@@ -77,17 +77,9 @@
                     .then(r => r.json())
                     .then(json => {
                         this.transactions = json;
-                        //this.transactions[0].categoryName = "Grocery";
                         this.loading = false;
                         return
                     });
-
-                /*fetch('https://localhost:7007/categories/1')
-                    .then(r => r.json())
-                    .then(json => {
-                        this.category = json;
-                        return
-                    });*/
             }
         },
     }
