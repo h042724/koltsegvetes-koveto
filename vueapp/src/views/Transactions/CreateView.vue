@@ -79,7 +79,6 @@
                     .then(json => {
                         this.categories = json;
                         this.loading = false;
-                        console.log(this.categories);
                         return
                     });
             }

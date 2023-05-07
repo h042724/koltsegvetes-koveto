@@ -18,7 +18,7 @@ namespace webapi.Controllers
         }
 
         // GET: Transactions
-        [Authorize]
+        //[Authorize]
         [HttpGet(Name = "GetTransactions")]
         public IEnumerable<Transactions> Get()
         {
@@ -30,13 +30,13 @@ namespace webapi.Controllers
         [HttpGet("{id:int}")]
         public Transactions Details(int id)
         {
-            return _context.transactions.FirstOrDefault(m => m.ID == id);
+            return _context.transactions.Include(u => u.ReferencedCategory).FirstOrDefault(m => m.ID == id);
         }
 
 
         // POST: Transactions/Create
         [HttpPost("{type}")]
-        public async Task<IActionResult> Create(string type, [Bind("ID,Name,Amount,TransactionDate")] Transactions transactions)
+        public async Task<IActionResult> Create(string type, [Bind("ID,Name,Amount,TransactionDate,CategoryID")] Transactions transactions)
         {
             if (ModelState.IsValid)
             {
@@ -53,7 +53,7 @@ namespace webapi.Controllers
 
         // POST: Transactions/Edit/5
         [HttpPost("edit/{type}/{id}")]
-        public async Task<IActionResult> Edit(string type, int id, [Bind("ID,Name,Amount,TransactionDate")] Transactions transactions)
+        public async Task<IActionResult> Edit(string type, int id, [Bind("ID,Name,Amount,TransactionDate,CategoryID")] Transactions transactions)
         {
             if (id != transactions.ID)
             {

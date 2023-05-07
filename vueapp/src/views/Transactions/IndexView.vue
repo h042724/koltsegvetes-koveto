@@ -87,14 +87,4 @@
 
 <style lang="scss" scoped>
     @import '../../assets/css/transactions.css';
-
-    .material-symbols-outlined {
-        color: var(--grey);
-        font-size: 30px;
-        font-variation-settings: 
-            'FILL' 0, 
-            'wght' 700, 
-            'GRAD' 0, 
-            'opsz' 48
-    }
 </style>

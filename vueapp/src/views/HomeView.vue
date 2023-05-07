@@ -97,10 +97,10 @@
             display: flex;
             justify-content: space-between;
 
-            @media screen and (max-width: 768px) {
+            /*@media screen and (max-width: 768px) {
                 flex-wrap: wrap;
                 justify-content: center;
-            }
+            }*/
         }
 
         &__info {

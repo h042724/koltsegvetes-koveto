@@ -1,35 +1,46 @@
 <template>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <main id="details">
         <h1>Transactions details</h1>
         <div id="details-transactions" class="transactions-body">
-            <dl v-show="transactions">
-                <dt>
-                    <label>Name</label>
-                </dt>
-                <dd class="col-sm-10">
-                    {{ transactions.name }}
-                </dd>
-                <dt>
-                    <label>Amount</label>
-                </dt>
-                <dd class="col-sm-10">
-                    {{ transactions.amount }}
-                </dd>
-                <dt>
-                    <label>Transaction Date</label>
-                </dt>
-                <dd class="col-sm-10">
-                    {{ transactions.transactionDate }}
-                </dd>
-            </dl>
-            <button class="transaction-button">
-                <router-link :to="{ name: 'EditTransactions', params: { id: transactions.id, type: transactions.amount < 0 ? 'expense' : 'income'}}">Edit</router-link>
-            </button>
-            <button class="transaction-button">
-                <router-link :to="{ name: 'IndexTransactions' }">Back to List</router-link>
-            </button>
+            <div v-if="loading" class="loading"></div>
+            <div v-if="transactions">
+                <dl>
+                    <dt>
+                        <label>Name</label>
+                    </dt>
+                    <dd class="col-sm-10">
+                        {{ transactions.name }}
+                    </dd>
+                    <dt>
+                        <label>Amount</label>
+                    </dt>
+                    <dd class="col-sm-10">
+                        {{ transactions.amount }}
+                    </dd>
+                    <dt>
+                        <label>Transaction Date</label>
+                    </dt>
+                    <dd class="col-sm-10">
+                        {{ transactions.transactionDate }}
+                    </dd>
+                    <dt>
+                        <label>Category</label>
+                    </dt>
+                    <dd>
+                        <span class="material-symbols-outlined">{{ transactions.referencedCategory.iconName }}</span>
+                        {{ transactions.referencedCategory.name }}
+                    </dd>
+                </dl>
+                <button class="transaction-button">
+                    <router-link :to="{ name: 'EditTransactions', params: { id: transactions.id, type: transactions.amount < 0 ? 'expense' : 'income'}}">Edit</router-link>
+                </button>
+                <button class="transaction-button">
+                    <router-link :to="{ name: 'IndexTransactions' }">Back to List</router-link>
+                </button>
+            </div>
         </div>
-        </main>
+    </main>
 </template>
 
 <script>
