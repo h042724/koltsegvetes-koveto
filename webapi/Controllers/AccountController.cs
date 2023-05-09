@@ -58,6 +58,7 @@ namespace webapi.Controllers
                 }
 
                 await _userManager.AddToRolesAsync(user, userDTO.Roles);
+               
                 return Accepted();
             }
             catch (Exception ex)
@@ -83,6 +84,7 @@ namespace webapi.Controllers
                 }
                 // var a = await _userManager.GetEmailAsync();
                 bool b = User.Identity.IsAuthenticated;
+                
 
                 return Accepted(new { Token = await _authManager.CreateToken(userDTO) });
             }

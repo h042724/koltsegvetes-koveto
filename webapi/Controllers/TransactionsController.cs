@@ -63,7 +63,9 @@ namespace webapi.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            return View(transactions);
+            //return View(_context.transactions.Include(u => u.ReferencedCategory));
+            return RedirectToAction(nameof(Index));
+
         }
 
         // POST: Transactions/Edit/5
