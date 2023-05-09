@@ -18,10 +18,10 @@ namespace webapi.Services
             _userManager = userManager;
             _configuration = configuration;
         }
-        public async Task<string> CreateToken()
+        public async Task<string> CreateToken(LoginUserDTO userDTO)
         {
             var signingCredentials = GetSigningCredentials();
-            var claims = await GetClaims();
+            var claims = await GetClaims(userDTO);
             var token = GenerateTokenOptions(signingCredentials, claims);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
@@ -42,11 +42,14 @@ namespace webapi.Services
             return token;
         }
 
-        private async Task<List<Claim>> GetClaims()
+        private async Task<List<Claim>> GetClaims(LoginUserDTO userDTO)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, _user.UserName)
+                new Claim(ClaimTypes.Email,  userDTO.Email),
+                new Claim(JwtRegisteredClaimNames.Sub,  _user.Id),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
             };
 
             var roles = await _userManager.GetRolesAsync(_user);

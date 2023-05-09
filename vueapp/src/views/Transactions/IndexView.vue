@@ -4,7 +4,7 @@
         <h1>Transactions index</h1>
         <div id="transactions-add-router">
             <button class="transaction-button">
-                <span class="material-symbols-outlined">add_circle</span>            
+                <span class="material-symbols-outlined">add_circle</span>
             </button>
             <div class="dropdown-content">
                 <router-link :to="{ name: 'CreateTransactions', params: { type: 'expense'}}">Add New Expense</router-link>

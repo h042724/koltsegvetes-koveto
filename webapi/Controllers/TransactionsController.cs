@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using webapi.Context;
 using webapi.Models;
 
@@ -11,10 +14,15 @@ namespace webapi.Controllers
     public class TransactionsController : Controller
     {
         private readonly EFContext _context;
+        private readonly UserManager<ApiUser> _userManager;
+        private readonly ILogger<TransactionsController> _logger;
+        private ApiUser _user;
 
-        public TransactionsController(EFContext context)
+        public TransactionsController(EFContext context, UserManager<ApiUser> userManager, ILogger<TransactionsController> logger)
         {
             _context = context;
+            _userManager = userManager;
+            _logger = logger;
         }
 
         // GET: Transactions
@@ -38,6 +46,12 @@ namespace webapi.Controllers
         [HttpPost("{type}")]
         public async Task<IActionResult> Create(string type, [Bind("ID,Name,Amount,TransactionDate,CategoryID")] Transactions transactions)
         {
+            var asd = User.Identity.Name;
+            //bool user = User?.Identity.IsAuthenticated ?? false;
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
+            _logger.LogInformation("TransactionsController LOG " + HttpContext.GetTokenAsync("Bearer", "access_token"));
+            _logger.LogInformation("TransactionsController LOG EMAIL " + email);
+
             if (ModelState.IsValid)
             {
                 if(type == "expense")
@@ -46,6 +60,7 @@ namespace webapi.Controllers
                 } 
                 _context.Add(transactions);
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             return View(transactions);

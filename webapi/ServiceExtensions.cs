@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using webapi.Context;
@@ -38,6 +39,7 @@ namespace webapi
                      ValidIssuer = jwtSettings.GetSection("Issuer").Value,
                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
                  };
+                 o.SaveToken = true;
              });
         }
     }

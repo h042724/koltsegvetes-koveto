@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Common;
+using Microsoft.Extensions.Logging;
+using NuGet.Protocol.Plugins;
+using System.Security.Claims;
 using webapi.Models;
 using webapi.Services;
 
@@ -78,8 +81,10 @@ namespace webapi.Controllers
                 {
                     return Unauthorized();
                 }
+                // var a = await _userManager.GetEmailAsync();
+                bool b = User.Identity.IsAuthenticated;
 
-                return Accepted(new { Token = await _authManager.CreateToken() });
+                return Accepted(new { Token = await _authManager.CreateToken(userDTO) });
             }
             catch (Exception e)
             {
