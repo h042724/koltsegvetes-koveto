@@ -46,7 +46,7 @@ namespace webapi.Controllers
         [HttpPost("{type}")]
         public async Task<IActionResult> Create(string type, [Bind("ID,Name,Amount,TransactionDate,CategoryID")] Transactions transactions)
         {
-            var asd = User.Identity.Name;
+            var asd = User.Identity.Name; // todo
             //bool user = User?.Identity.IsAuthenticated ?? false;
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
             _logger.LogInformation("TransactionsController LOG " + HttpContext.GetTokenAsync("Bearer", "access_token"));
@@ -61,7 +61,7 @@ namespace webapi.Controllers
                 _context.Add(transactions);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index)); //todo
             }
             //return View(_context.transactions.Include(u => u.ReferencedCategory));
             return RedirectToAction(nameof(Index));
