@@ -74,7 +74,7 @@
 
             async deleteData() {
                 try {
-                    await fetch(`${uri}/delete/${this.id}`, {
+                    await fetch(`${uri}/${this.id}`, {
                         method: 'DELETE'
                     }).then(this.$router.push('/transactions'))
                     .then(response => {
