@@ -56,11 +56,12 @@
                     name: document.getElementById('name').value,
                     amount: document.getElementById('amount').value,
                     transactionDate: this.$refs.transactionDate.value,
-                    categoryID: document.getElementById("categories").value
+                    categoryID: document.getElementById("categories").value,
+                    userID: ''
                 };
 
                 try {
-                    await fetch(`${transactionsUri}/${this.type}`, {
+                    await fetch(`${transactionsUri}`, {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',

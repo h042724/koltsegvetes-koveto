@@ -11,11 +11,10 @@ namespace webapi.Controllers
     public class TransactionsController : Controller
     {
         private readonly EFContext _context;
-        private readonly UserManager<ApiUser> _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<TransactionsController> _logger;
-        private ApiUser _user;
 
-        public TransactionsController(EFContext context, UserManager<ApiUser> userManager, ILogger<TransactionsController> logger)
+        public TransactionsController(EFContext context, UserManager<IdentityUser> userManager, ILogger<TransactionsController> logger)
         {
             _context = context;
             _userManager = userManager;
@@ -40,29 +39,30 @@ namespace webapi.Controllers
 
 
         // POST: Transactions/Create
-        [HttpPost("{type}")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Create(string type, [Bind("ID,Name,Amount,TransactionDate,CategoryID")] Transactions transactions)
+        public async Task<IActionResult> Create([FromBody] Transactions transactions)
         {
-            /*var asd = User.Identity.Name; // todo
-            bool user = User?.Identity.IsAuthenticated ?? false;
-            var email = User.FindFirst(ClaimTypes.Email)?.Value;
-            _logger.LogInformation("TransactionsController LOG " + HttpContext.GetTokenAsync("Bearer", "access_token"));
-            _logger.LogInformation("TransactionsController LOG EMAIL " + email);*/
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             try 
-            { 
-                if(type == "expense")
+            {
+                if (User.Identity.Name is not null)
+                {
+                    var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+                    transactions.UserID = user.Id;
+                }
+
+                /*if (type is "expense")
                 {
                     transactions.Amount *= -1;
-                } 
+                } */
                 
                 _context.Add(transactions);
+                _logger.LogInformation(transactions.Name, transactions.UserID, transactions.ReferencedCategory);
                 await _context.SaveChangesAsync();
 
                 return Accepted(); 

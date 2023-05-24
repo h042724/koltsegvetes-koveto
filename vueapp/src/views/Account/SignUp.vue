@@ -34,7 +34,7 @@
 
 <script>
     import Error from '../../components/ErrorComponent.vue';
-    const uri = 'https://localhost:7007/account';
+    const uri = 'https://localhost:7007/register';
 
     export default {
         name: "SignUpView",
@@ -54,18 +54,37 @@
         },
         methods: {
             async addUser() {
-                const postData = {
-                    firstName: this.$refs.firstname.value,
-                    lastName: this.$refs.lastname.value,
+                /*const postData = {
+                    //firstName: this.$refs.firstname.value,
+                    //lastName: this.$refs.lastname.value,
                     email: this.$refs.email.value,
                     password: this.$refs.password.value,
                     roles: [
                         "User"
                     ]
-                };
+                };*/
 
                 try {
-                    await fetch(`${uri}/signup`, {
+                    await fetch(`${uri}`, {
+                        method: 'POST',
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        credentials: 'same-origin',
+
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            email: document.getElementById("email"),
+                            password: document.getElementById("password")
+                        }),
+                    })
+                } catch (err) {
+                    console.log(err);
+                }
+
+                /*try {
+                    await fetch(`${uri}`, {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',
@@ -92,15 +111,15 @@
                                 break;
                                 case json['errors']['Email'] != false && json['errors']['Password'] != false: this.error = 'Invalid e-mail and password!';
                                 break;
-                                /*case json['DuplicateEmail']['DuplicateEmail'] != false: this.error = 'E-mail is already taken!';
-                                break;*/
+                                case json['DuplicateEmail']['DuplicateEmail'] != false: this.error = 'E-mail is already taken!';
+                                break;
                             }
                         })
                     });
                 } catch (err) {
                     console.log(err);
                     this.error = err;
-                }
+                }*/
             },
         }
     }

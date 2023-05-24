@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using webapi.Configurations.Entities;
 using webapi.Models;
 
 namespace webapi.Context
 {
-    public class EFContext : IdentityDbContext<ApiUser>
+    public class EFContext : IdentityDbContext
     {
         public EFContext(DbContextOptions options) : base(options) {  }
 

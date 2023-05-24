@@ -23,7 +23,7 @@
 <script>
     import Error from '../../components/ErrorComponent.vue';
     import Success from '../../components/SuccessComponent.vue';
-    const uri = 'https://localhost:7007/account';
+    const uri = 'https://localhost:7007/Login';
 
     export default {
         name: "LoginView",
@@ -46,19 +46,39 @@
             async login() {
                 const postData = {
                     email: this.$refs.email.value,
-                    password: this.$refs.password.value
+                    password: this.$refs.password.value,
+                    rememberMe: false
                 };
 
                 try {
                     await fetch(`${uri}/login`, {
-                        method: 'POST',
+                        method: "POST",
+                        mode: 'cors',
                         headers: {
-                            'Accept': 'application/json',
                             'Content-Type': 'application/json'
                         },
+                        credentials: 'include',
                         body: JSON.stringify(postData)
-                    }).then((response) => response.body)
-                        .then((rb) => {
+                    }).then(response => {
+                        for (let header of response.headers.entries()) {
+                            console.log(header);
+                        } }).then(this.$router.push('/transactions'))
+                } catch (err) {
+                    console.log(err)
+                }
+
+                /*try {
+                    await fetch(`${uri}/login`, {
+                        method: 'POST',
+                        headers: {
+                            'Access-Control-Allow-Origin' : '*',
+                            'Content-type': 'application/json'
+                        },
+                        body: JSON.stringify(postData),
+                    }).then((response) => {
+                        console.log(response.body);
+                        console.log(response.json())
+                    }).then((rb) => {
                             const reader = rb.getReader();
                             return new ReadableStream({
                                 start(controller) {
@@ -78,24 +98,14 @@
                         })
                         .then((stream) => new Response(stream, { headers: { "Content-Type": "text/html" } }).text()
                         )
-                        .then((result) => {
-                            localStorage.setItem("user", JSON.parse(result).token)
-                            console.log(JSON.parse(result).token);
-                        })
-                        .then(this.$router.push('/transactions'))
                         .then((response) => {
                             // 1. check response.ok
+                            console.log(response);
                             if (response.ok) {
                                 this.$router.push('/transactions');
                                 //return response.json();
                             }
                             return Promise.reject(response); // 2. reject instead of throw
-                        })
-                        .then((json) => {
-                            // all good, token is ready
-                            //this.store.commit("token", json.access_token);
-                            console.log("all good, token is ready" + json);
-                            this.success = "Your account has been created. Please log in!"
                         })
                         .catch((response) => {
                             console.log(response.status, response.statusText);
@@ -107,10 +117,10 @@
                         });
                     } catch (err) {
                         console.log(err);
-                    }
-                },
-            }
+                    }*/
+            },
         }
+    }
 </script>
 
 <style>

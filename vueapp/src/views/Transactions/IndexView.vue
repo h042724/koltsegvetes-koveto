@@ -2,6 +2,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />    
     <main id="index">
         <h1>Transactions index</h1>
+        <button @click="fetchUser">Fetch User</button>
+        <p v-if="user">Hello, {{ user }}</p>
         <div id="transactions-add-router">
             <button class="transaction-button">
                 <span class="material-symbols-outlined">add_circle</span>
@@ -59,7 +61,8 @@
             return {
                 loading: false,
                 transactions: null,
-                category: null
+                category: null,
+                user: null
             };
         },
         created() {
@@ -69,17 +72,41 @@
             '$route': 'fetchData'
         },
         methods: {
-            fetchData() {
+            async fetchData() {
                 this.transactions = null;
                 this.loading = true;
 
-                fetch(`${uri}`)
-                    .then(r => r.json())
+                await fetch(`${uri}`, {
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: {
+                        'Access-Control-Allow-Origin': 'https://localhost:7007',
+                        'Access-Control-Allow-Credentials': 'true'
+                    }
+                }).then(r => r.json())
+                  .then(json => {
+                      this.transactions = json;
+                      this.loading = false;
+                      return
+                  });
+            },
+
+            async fetchUser() {
+                this.user = null;
+
+                await fetch('https://localhost:7007/Login/getUser', {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Access-Control-Allow-Origin': 'https://localhost:7007',
+                        'Access-Control-Allow-Credentials': 'true'
+                    }
+                }).then(r => r.json())
                     .then(json => {
-                        this.transactions = json;
-                        this.loading = false;
+                        this.user = json;
                         return
-                    });
+                    })
+                    .catch(err => console.log(err));
             }
         },
     }

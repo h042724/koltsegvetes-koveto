@@ -1,79 +1,52 @@
-using Microsoft.OpenApi.Models;
-using webapi;
-using webapi.Configurations;
 using webapi.Context;
-using webapi.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("EFContextConnection") ?? throw new InvalidOperationException("Connection string 'EFContextConnection' not found.");
 
 // Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddDbContext<EFContext>();
 
-builder.Services.AddAuthentication();   
-builder.Services.ConfigureIdentity();   
-builder.Services.ConfigureJWT(builder.Configuration);
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<EFContext>();
 
-builder.Services.AddAutoMapper(typeof(MapperInitializer));
-
-builder.Services.AddScoped<IAuthManager, AuthManager>();
-
-builder.Services.AddSwaggerGen(c =>
+/*builder.Services.AddAuthentication(options =>
 {
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Description = @"JWT Authorization header using the Bearer scheme.
-                        Enter 'Bearer' [space] and then your token in the text input below.
-                        Example: 'Bearer 12345abcdef'",
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
-    });
-
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement() {
-        {
-        new OpenApiSecurityScheme 
-        {
-            Reference = new OpenApiReference {
-                Type = ReferenceType.SecurityScheme,
-                Id = "Bearer"
-            },
-            Scheme = "0auth2",
-            Name = "Bearer",
-            In = ParameterLocation.Header
-        },
-        new List<string>()
-        }
-    });
-});
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+});*/
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseHttpsRedirection();
+app.UseRouting();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
-app.UseRouting();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
 app.MapControllers();
 
 app.UseCors(builder => builder
     .AllowAnyHeader()
     .AllowAnyMethod()
-    .AllowAnyOrigin()
+    //.AllowAnyOrigin()
+    .AllowCredentials()
+    .WithOrigins("https://localhost:5002")
 );
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();

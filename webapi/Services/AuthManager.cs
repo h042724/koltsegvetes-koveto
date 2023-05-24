@@ -46,6 +46,7 @@ namespace webapi.Services
         {
             var claims = new List<Claim>
             {
+                new Claim(ClaimTypes.Name,  userDTO.Email),
                 new Claim(ClaimTypes.Email,  userDTO.Email),
                 new Claim(JwtRegisteredClaimNames.Sub,  _user.Id),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
