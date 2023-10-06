@@ -18,12 +18,18 @@ builder.Services.AddDbContext<EFContext>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<EFContext>();
 
+builder.Services.Configure<CookieAuthenticationOptions>(
+  IdentityConstants.ApplicationScheme,
+    x => x.Cookie.SameSite = SameSiteMode.None);
+
 /*builder.Services.AddAuthentication(options =>
 {
     options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 });*/
+
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -48,5 +54,7 @@ app.UseCors(builder => builder
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSession();
 
 app.Run();
