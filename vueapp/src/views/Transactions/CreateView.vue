@@ -61,14 +61,14 @@
                 };
 
                 try {
-                    await fetch(`${transactionsUri}`, {
+                    await fetch(`${transactionsUri}/${this.type}`, {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(postData),
-                    }).then(this.$router.push('/transactions'))
+                    }).then(this.$router.push('/transactions')).then(() => { this.$router.go() })
                 } catch (err) {
                     alert(err);
                 }

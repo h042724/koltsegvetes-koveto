@@ -39,27 +39,28 @@ namespace webapi.Controllers
 
 
         // POST: Transactions/Create
-        [HttpPost]
+        [HttpPost("{type}")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Create([FromBody] Transactions transactions)
+        public async Task<IActionResult> Create(string type, [FromBody] Transactions transactions)
         {
+            _logger.LogError( $"Something went wrong " + ModelState);
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             try 
             {
-                if (User.Identity.Name is not null)
+                if (HttpContext.User.Identity.IsAuthenticated)
                 {
                     var user = await _userManager.FindByEmailAsync(User.Identity.Name);
                     transactions.UserID = user.Id;
                 }
 
-                /*if (type is "expense")
+                if (type is "expense")
                 {
                     transactions.Amount *= -1;
-                } */
+                }
                 
                 _context.Add(transactions);
                 _logger.LogInformation(transactions.Name, transactions.UserID, transactions.ReferencedCategory);
