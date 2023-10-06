@@ -50,74 +50,25 @@
                     rememberMe: false
                 };
 
-                try {
-                    await fetch(`${uri}/login`, {
-                        method: "POST",
-                        mode: 'cors',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        credentials: 'include',
-                        body: JSON.stringify(postData)
-                    }).then(response => {
-                        for (let header of response.headers.entries()) {
-                            console.log(header);
-                        } }).then(this.$router.push('/transactions'))
-                } catch (err) {
-                    console.log(err)
-                }
-
-                /*try {
-                    await fetch(`${uri}/login`, {
-                        method: 'POST',
-                        headers: {
-                            'Access-Control-Allow-Origin' : '*',
-                            'Content-type': 'application/json'
-                        },
-                        body: JSON.stringify(postData),
-                    }).then((response) => {
-                        console.log(response.body);
-                        console.log(response.json())
-                    }).then((rb) => {
-                            const reader = rb.getReader();
-                            return new ReadableStream({
-                                start(controller) {
-                                    function push() {
-                                        reader.read().then(({ done, value }) => {
-                                            if (done) {
-                                                controller.close();
-                                                return;
-                                            }
-                                            controller.enqueue(value);
-                                            push();
-                                        });
-                                    }
-                                    push();
-                                },
-                            });
-                        })
-                        .then((stream) => new Response(stream, { headers: { "Content-Type": "text/html" } }).text()
-                        )
-                        .then((response) => {
-                            // 1. check response.ok
-                            console.log(response);
-                            if (response.ok) {
-                                this.$router.push('/transactions');
-                                //return response.json();
-                            }
-                            return Promise.reject(response); // 2. reject instead of throw
-                        })
-                        .catch((response) => {
-                            console.log(response.status, response.statusText);
-                            // 3. get error messages, if any
-                            response.json().then((json) => {
-                                console.log(json);
-                                this.error = 'Incorrect email or password!';
-                            })
-                        });
-                    } catch (err) {
-                        console.log(err);
-                    }*/
+                await fetch(`${uri}/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify(postData)
+                }).then((response) => {
+                    // TODO: Response number should indicate whether theres a user or should sign up 
+                    if (response.ok) {
+                        this.$router.push('/transactions')
+                    } else {
+                        this.$refs.password.value = '';
+                        this.error = 'Invalid email or password!';
+                    }
+                })/*.then((responseJson) => {
+                    // Do something with the response
+                }).catch((error) => {
+                    console.log(error)
+                })*/;
             },
         }
     }

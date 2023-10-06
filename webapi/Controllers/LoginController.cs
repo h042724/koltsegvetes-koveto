@@ -1,4 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -66,6 +70,13 @@ namespace webapi.LoginController
                 var result = await _signInManager.PasswordSignInAsync(inputModel.Email, inputModel.Password, inputModel.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    var identity = new ClaimsIdentity(new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, inputModel.Email)
+                    }, "Custom");
+
+                    HttpContext.User = new ClaimsPrincipal(identity);
+
                     _logger.LogInformation("User logged in.");
                     var user = await _userManager.FindByEmailAsync(inputModel.Email);
                     return Ok(user);
