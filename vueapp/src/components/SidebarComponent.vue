@@ -55,11 +55,6 @@
 
     <script>
         import { ref } from 'vue'
-        import { useRouter } from 'vue-router';
-        import { getCurrentInstance } from 'vue';
-
-        const router = useRouter();
-        const instance = getCurrentInstance();
         const sessionStorage = window.sessionStorage;
 
         export default {
@@ -82,7 +77,9 @@
                 },
                 signOut() {
                     sessionStorage.removeItem("isAuthenticated");
-                    instance.proxy.$forceUpdate();
+                    if(this.$route.name == "Home") {
+                        this.$router.go();
+                    }
                 }
             }
         }

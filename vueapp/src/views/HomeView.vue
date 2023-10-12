@@ -12,7 +12,7 @@
                         Whether you want to plan for the future, reduce your debt or just enjoy your money, this app will make it easy for you.
                         Try this app now and discover the power of budgeting!
                     </div>
-                    <div ref="button" class="main-block__btn">
+                    <div ref="button" class="main-block__btn" v-if="!isAuthenticated" :key="isAuthenticated">
                         <AppButton ref="button"
                                    text="Sign Up Now!"
                                    color="coral"
@@ -37,19 +37,25 @@
     import AppContainer from "@/components/components/AppContainer.vue";
     import AppButton from "@/components/components/AppButton.vue";
     import { gsap } from 'gsap';
+    const sessionStorage = window.sessionStorage;
 
     export default {
         name: 'HomeView',
-
         components: {
             AppContainer,
             AppButton
         },
-
+        data() {
+            return {
+                isAuthenticated: sessionStorage.isAuthenticated == null ? false : sessionStorage.isAuthenticated,
+            }
+        },
         mounted() {
             this.AnimationMainBlock();
         },
-
+        watch: {
+                '$route': 'userIsAuthenticated'
+        },
         methods: {
             AnimationMainBlock() {
                 const title = this.$refs.title;
@@ -77,7 +83,10 @@
                     y: -50,
                     duration: 0.3
                 });
-            }
+            },
+            userIsAuthenticated() {
+                this.isAuthenticated = sessionStorage.isAuthenticated == null ? false : sessionStorage.isAuthenticated
+            },
         }
 
     }

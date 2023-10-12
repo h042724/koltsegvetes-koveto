@@ -19,12 +19,18 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
-    props: true
+    props: true,
+    meta: {
+        disableIfLoggedIn: true
+    }
   },
   {
     path: '/signup',
     name: 'SignUp',
-    component: SignUp
+    component: SignUp,
+    meta: {
+        disableIfLoggedIn: true
+    }
   },
   {
     path: '/transactions',
@@ -79,7 +85,9 @@ const router = createRouter({
 
 router.beforeEach((to, from) => {
     if (to.meta.requiresAuth && !sessionStorage.isAuthenticated) {
-        return {name: 'Login'}
+        return { name: 'Login' }
+    } else if (to.meta.disableIfLoggedIn && sessionStorage.isAuthenticated) {
+        return { name: 'Home' }
     }
 })
 
