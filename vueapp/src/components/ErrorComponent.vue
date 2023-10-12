@@ -3,7 +3,7 @@
         <span class="material-icons">error</span>
         <b>Error!&nbsp;</b> 
         <router-link :to=routeTo>
-            {{ error }}
+            {{ text }}
         </router-link>
     </div>
 </template>
@@ -11,7 +11,19 @@
 <script>
     export default {
         name: "ErrorComponent",
-        props: ['error', 'routeTo'],
+        props: {
+            text: {
+                type: String,
+                default: '',
+                required: true
+            },
+
+            routeTo: {
+                type: String,
+                default: '',
+                required: false
+            }
+        },
         components: {},
     }
 </script>
@@ -26,7 +38,7 @@
     .error {
         font-size: 1em;
         color: red;
-        background-color: lightpink;
+        background-color: #FFE6EE;
         border-radius: 10px;
         display: flex;
         align-items: center;

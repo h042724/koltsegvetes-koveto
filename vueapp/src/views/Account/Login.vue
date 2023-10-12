@@ -4,7 +4,7 @@
         <div id="create-transactions" class="transactions-body">
             <p>Login</p>
             <div>
-                <error v-if="error" :error="error" />
+                <error v-if="error" :text="error" />
                 <success v-if="success" :success="success" />
                 <div class="form-group">
                     <label for="email">E-mail:</label>
@@ -61,7 +61,7 @@
                     // TODO: Response number should indicate whether theres a user or should sign up 
                     if (response.ok) {
                         sessionStorage.isAuthenticated = true;
-                        this.$router.push('/transactions').then(() => { this.$forceUpdate() })
+                        this.$router.push('/transactions');
                     } else {
                         this.$refs.password.value = '';
                         this.error = 'Invalid email or password!';

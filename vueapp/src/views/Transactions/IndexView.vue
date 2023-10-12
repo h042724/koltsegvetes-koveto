@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />    
     <main id="index">
         <h1>Transactions index</h1>
-        <error v-if="error" :error="error" :routeTo="routeTo" />
+        <error v-if="error" :text="error" :routeTo="routeTo" />
         <div id="transactions-add-router">
             <button class="transaction-button">
                 <span class="material-symbols-outlined">add_circle</span>
