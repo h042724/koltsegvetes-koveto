@@ -3,19 +3,16 @@
         <app-container>
             <div class="main-block__wrapper">
                 <div class="main-block__info">
-                    <h1 ref="title"
-                        class="main-block__title">
+                    <h1 ref="title" class="main-block__title">
                         If you're looking for a  <span>simple</span> and <span>effective</span> way to <span>manage your money</span>, look no further than this app!
                     </h1>
-                    <div ref="description"
-                         class="main-block__description">
+                    <div ref="description" class="main-block__description">
                         This app helps you track your incomes and expenses, analyze your spending patterns and set realistic budgeting goals for the month.
                         You can see how much you can afford to spend, how much you need to save and how you can optimize your finances.
                         Whether you want to plan for the future, reduce your debt or just enjoy your money, this app will make it easy for you.
                         Try this app now and discover the power of budgeting!
                     </div>
-                    <div ref="button"
-                         class="main-block__btn">
+                    <div ref="button" class="main-block__btn">
                         <AppButton ref="button"
                                    text="Sign Up Now!"
                                    color="coral"
@@ -30,8 +27,7 @@
                                    class="main-block__button" />
                     </div>
                 </div>
-                <div ref="image"
-                     class="main-block__image"></div>
+                <div ref="image" class="main-block__image"></div>
             </div>
         </app-container>
     </div>
@@ -88,19 +84,23 @@
 </script>
 
 <style lang="scss">
-    .main-block {
+    .app {
         background: url("../assets/images/bg-shape-left.png");
-        background-repeat: no-repeat;
+        background-repeat: repeat;
+    }
+
+    .main-block {
+        //background: url("../assets/images/bg-shape-left.png");
         background-size: cover;
 
         &__wrapper {
             display: flex;
-            justify-content: space-between;
+            justify-content: end;
 
-            /*@media screen and (max-width: 768px) {
+            @media screen and (max-width: 768px) {
                 flex-wrap: wrap;
                 justify-content: center;
-            }*/
+            }
         }
 
         &__info {

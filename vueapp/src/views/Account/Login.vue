@@ -23,6 +23,7 @@
 <script>
     import Error from '../../components/ErrorComponent.vue';
     import Success from '../../components/SuccessComponent.vue';
+    const sessionStorage = window.sessionStorage;
     const uri = 'https://localhost:7007/Login';
 
     export default {
@@ -59,7 +60,8 @@
                 }).then((response) => {
                     // TODO: Response number should indicate whether theres a user or should sign up 
                     if (response.ok) {
-                        this.$router.push('/transactions')
+                        sessionStorage.isAuthenticated = true;
+                        this.$router.push('/transactions').then(() => { this.$forceUpdate() })
                     } else {
                         this.$refs.password.value = '';
                         this.error = 'Invalid email or password!';

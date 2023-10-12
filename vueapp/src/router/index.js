@@ -7,6 +7,7 @@ import CreateTransactions from '../views/Transactions/CreateView.vue'
 import EditTransactions from '../views/Transactions/EditView.vue'
 import DeleteTransactions from '../views/Transactions/DeleteView.vue'
 import DetailsTransactions from '../views/Transactions/DetailsView.vue'
+const sessionStorage = window.sessionStorage;
 
 const routes = [
   {
@@ -28,37 +29,58 @@ const routes = [
   {
     path: '/transactions',
     name: 'IndexTransactions',
-    component: IndexTransactions
+    component: IndexTransactions,
+    meta: {
+        requiresAuth: true
+    }
   },
   {
     path: '/transactions/create/:type',
     name: 'CreateTransactions',
     component: CreateTransactions,
-    props: true
+    props: true,
+    meta: {
+        requiresAuth: true
+    }
   },
   {
     path: '/transactions/edit/:type/:id',
     name: 'EditTransactions',
     component: EditTransactions,
-    props: true
+    props: true,
+    meta: {
+        requiresAuth: true
+    }
   },
   {
     path: '/transactions/delete/:id',
     name: 'DeleteTransactions',
     component: DeleteTransactions,
-    props: true
+    props: true,
+    meta: {
+        requiresAuth: true
+    }
   },
   {
     path: '/transactions/details/:id',
     name: 'DetailsTransactions',
     component: DetailsTransactions,
-    props: true
+    props: true,
+    meta: {
+        requiresAuth: true
+    }
   },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from) => {
+    if (to.meta.requiresAuth && !sessionStorage.isAuthenticated) {
+        return {name: 'Login'}
+    }
 })
 
 export default router
