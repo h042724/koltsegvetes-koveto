@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using webapi.Context;
@@ -22,12 +23,21 @@ namespace webapi.Controllers
         }
 
         // GET: Transactions
-        //[Authorize]
+        [Authorize]
         [HttpGet(Name = "GetTransactions")]
-        public IEnumerable<Transactions> Get()
+        public async Task<IActionResult> GetAsync()
         {
-              //return _context.transactions.ToArray();
-              return _context.transactions.Include(u => u.ReferencedCategory);
+            try
+            {
+                var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+                var transactions = _context.transactions.Include(trn => trn.ReferencedCategory).Where(trn => trn.UserID == user.Id);
+                return Ok(transactions);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Something went wrong in the {nameof(GetAsync)}" + e);
+                return StatusCode(500, "Internal server error " + e);
+            }
         }
 
         // GET: Transactions/Details/5

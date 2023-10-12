@@ -10,7 +10,7 @@
                 </div>
                 <div class="form-group">
                     <label for="amount">Amount:</label>
-                    <input id="amount" type="text" class="form-control" ref="post_amount" required autocomplete="off" />
+                    <input id="amount" type="number" class="form-control" ref="post_amount" required autocomplete="off" />
                 </div>
                 <div class="form-group">
                     <label for="transaction-date">Transaction date:</label>
@@ -68,7 +68,7 @@
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(postData),
-                    }).then(this.$router.push('/transactions'))/*.then(() => { this.$router.go() })*/
+                    }).then(this.$router.push('/transactions'))
                 } catch (err) {
                     alert(err);
                 }

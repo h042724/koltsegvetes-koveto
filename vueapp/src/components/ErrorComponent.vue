@@ -1,14 +1,18 @@
 <template>
     <div class="error">
         <span class="material-icons">error</span>
-        <b>Error!&nbsp;</b> {{error}}
+        <b>Error!&nbsp;</b> 
+        <router-link :to=routeTo>
+            {{ error }}
+        </router-link>
     </div>
 </template>
 
 <script>
     export default {
         name: "ErrorComponent",
-        props: ['error']
+        props: ['error', 'routeTo'],
+        components: {},
     }
 </script>
 
