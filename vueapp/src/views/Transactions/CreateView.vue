@@ -68,7 +68,7 @@
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(postData),
-                    }).then(this.$router.push('/transactions')).then(() => { this.$router.go() })
+                    }).then(this.$router.push('/transactions'))/*.then(() => { this.$router.go() })*/
                 } catch (err) {
                     alert(err);
                 }

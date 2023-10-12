@@ -2,8 +2,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />    
     <main id="index">
         <h1>Transactions index</h1>
-        <button @click="fetchUser">Fetch User</button>
-        <p v-if="user">Hello, {{ user }}</p>
         <div id="transactions-add-router">
             <button class="transaction-button">
                 <span class="material-symbols-outlined">add_circle</span>
@@ -14,7 +12,7 @@
             </div>
         </div>
         <div v-if="loading" class="loading"></div>
-        <div v-if="transactions" id="index-transactions" class="transactions-body">
+        <div v-if="transactions" :key="transactions" id="index-transactions" class="transactions-body">
             <table>
                 <thead>
                     <tr>
