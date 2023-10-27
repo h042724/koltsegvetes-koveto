@@ -1,33 +1,24 @@
-using webapi.Context;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using webapi.Context;
+using webapi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("EFContextConnection") ?? throw new InvalidOperationException("Connection string 'EFContextConnection' not found.");
-
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<EFContext>();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<EFContext>();
+builder.Services.AddDefaultIdentity<ApiUser>
+    (options => options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<EFContext>();
 
 builder.Services.Configure<CookieAuthenticationOptions>(
   IdentityConstants.ApplicationScheme,
     x => x.Cookie.SameSite = SameSiteMode.None);
-
-/*builder.Services.AddAuthentication(options =>
-{
-    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-});*/
 
 builder.Services.AddSession();
 

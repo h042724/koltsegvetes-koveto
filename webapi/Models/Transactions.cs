@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,7 +9,7 @@ namespace webapi.Models
         [Key]
         public int ID { get; set; }
         [Required]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         [Required]
         public int Amount { get; set; }
         [Required]  
@@ -17,12 +17,12 @@ namespace webapi.Models
 
         // Category Foreign key
         [ForeignKey("ReferencedCategory")]
-        public virtual int CategoryID { get; set; }
+        public int CategoryID { get; set; }
         public virtual Category? ReferencedCategory { get; set; }
 
         // User Foreign key
         [ForeignKey("ReferencedUser")]
-        public virtual string UserID { get; set; }
-        public virtual IdentityUser? ReferencedUser { get; set; }
+        public string UserID { get; set; }
+        public virtual ApiUser? ReferencedUser { get; set; }
     }
 }

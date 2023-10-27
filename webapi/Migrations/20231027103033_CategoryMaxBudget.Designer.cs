@@ -11,14 +11,14 @@ using webapi.Context;
 namespace webapi.Migrations
 {
     [DbContext(typeof(EFContext))]
-    [Migration("20230423131926_AddedDefaultRoles")]
-    partial class AddedDefaultRoles
+    [Migration("20231027103033_CategoryMaxBudget")]
+    partial class CategoryMaxBudget
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.5");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.12");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -44,26 +44,6 @@ namespace webapi.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "970c357a-568c-455e-9b96-91372bb5b48d",
-                            Name = "Guest",
-                            NormalizedName = "GUEST"
-                        },
-                        new
-                        {
-                            Id = "a8845f66-2415-48e6-97ac-f4136da3aa32",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        },
-                        new
-                        {
-                            Id = "90021c92-984d-4b2e-b82f-19e56a0fbe56",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -115,9 +95,11 @@ namespace webapi.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderKey")
+                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderDisplayName")
@@ -155,9 +137,11 @@ namespace webapi.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Value")
@@ -189,10 +173,12 @@ namespace webapi.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
+                        .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
                         .IsRequired()
+                        .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("LockoutEnabled")
@@ -240,6 +226,81 @@ namespace webapi.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("webapi.Models.Category", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ExpenseOrIncome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("IconName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("MaxBudget")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("category");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            ExpenseOrIncome = "expense",
+                            IconName = "nutrition",
+                            MaxBudget = 0,
+                            Name = "Grocery"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            ExpenseOrIncome = "expense",
+                            IconName = "directions_car",
+                            MaxBudget = 0,
+                            Name = "Transportation"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            ExpenseOrIncome = "expense",
+                            IconName = "attractions",
+                            MaxBudget = 0,
+                            Name = "Entertainment"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            ExpenseOrIncome = "income",
+                            IconName = "payments",
+                            MaxBudget = 0,
+                            Name = "Salary"
+                        },
+                        new
+                        {
+                            ID = 5,
+                            ExpenseOrIncome = "income",
+                            IconName = "monetization_on",
+                            MaxBudget = 0,
+                            Name = "Investments"
+                        },
+                        new
+                        {
+                            ID = 6,
+                            ExpenseOrIncome = "income",
+                            IconName = "real_estate_agent",
+                            MaxBudget = 0,
+                            Name = "Rental"
+                        });
+                });
+
             modelBuilder.Entity("webapi.Models.Transactions", b =>
                 {
                     b.Property<int>("ID")
@@ -249,6 +310,9 @@ namespace webapi.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -256,7 +320,15 @@ namespace webapi.Migrations
                     b.Property<DateOnly>("TransactionDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("CategoryID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("transactions");
                 });
@@ -310,6 +382,25 @@ namespace webapi.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("webapi.Models.Transactions", b =>
+                {
+                    b.HasOne("webapi.Models.Category", "ReferencedCategory")
+                        .WithMany()
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("webapi.Models.ApiUser", "ReferencedUser")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ReferencedCategory");
+
+                    b.Navigation("ReferencedUser");
                 });
 #pragma warning restore 612, 618
         }

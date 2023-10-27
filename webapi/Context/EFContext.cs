@@ -1,15 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using webapi.Configurations.Entities;
 using webapi.Models;
 
 namespace webapi.Context
 {
-    public class EFContext : IdentityDbContext
+    public class EFContext : IdentityDbContext<ApiUser>
     {
-        public EFContext(DbContextOptions options) : base(options) {  }
-
+        public EFContext(DbContextOptions<EFContext> options): base(options) { }
         public DbSet<Transactions> transactions { get; set; }
         public DbSet<Category> category { get; set; }
 
@@ -22,7 +20,7 @@ namespace webapi.Context
         {
             base.OnModelCreating(builder);
 
-            builder.ApplyConfiguration(new RoleConfiguration());
+            //builder.ApplyConfiguration(new RoleConfiguration());
             builder.ApplyConfiguration(new CategoryConfiguration());
         }
     }
