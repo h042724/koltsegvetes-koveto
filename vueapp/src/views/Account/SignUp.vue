@@ -4,7 +4,7 @@
         <div id="create-transactions" class="transactions-body">
             <p>Sign Up</p>
             <div>
-                <error v-if="error" :error="error" />
+                <error v-if="error" :text="error" />
                 <div class="form-group">
                     <label for="firstname">First name:</label>
                     <input id="firstname" type="text" class="form-control" ref="firstname" required autocomplete="off" />
@@ -34,7 +34,8 @@
 
 <script>
     import Error from '../../components/ErrorComponent.vue';
-    const uri = 'https://localhost:7007/register';
+    const uri = 'https://localhost:7007/Register';
+    const sessionStorage = window.sessionStorage;
 
     export default {
         name: "SignUpView",
@@ -43,7 +44,7 @@
         },
         data() {
             return {
-                error: ''
+                error: null
             }
         },
         mounted() {
@@ -51,75 +52,44 @@
             this.$refs.lastname.focus()
             this.$refs.email.focus()
             this.$refs.password.focus()
+            this.$refs.confirmPassword.focus()
         },
         methods: {
             async addUser() {
-                /*const postData = {
-                    //firstName: this.$refs.firstname.value,
-                    //lastName: this.$refs.lastname.value,
+                const postData = {
+                    firstName: this.$refs.firstname.value,
+                    lastName: this.$refs.lastname.value,
                     email: this.$refs.email.value,
                     password: this.$refs.password.value,
-                    roles: [
-                        "User"
-                    ]
-                };*/
+                    confirmPassword: this.$refs.confirmPassword.value
+                };
 
                 try {
-                    await fetch(`${uri}`, {
-                        method: 'POST',
-                        mode: 'cors',
-                        cache: 'no-cache',
-                        credentials: 'same-origin',
-
-                        headers: {
-                            'content-type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            email: document.getElementById("email"),
-                            password: document.getElementById("password")
-                        }),
-                    })
-                } catch (err) {
-                    console.log(err);
-                }
-
-                /*try {
-                    await fetch(`${uri}`, {
+                    await fetch(`${uri}/register`, {
                         method: 'POST',
                         headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
+                            'Content-type': 'application/json'
                         },
-                        body: JSON.stringify(postData),
+                        body: JSON.stringify(postData)
                     }).then((response) => {
                         if (response.ok) {
-                            this.$router.push('/login')
-                            return response.json();
+                            sessionStorage.isAuthenticated = true;
+                            this.$router.push('/transactions');
                         }
-                        return Promise.reject(response);
-                    }).then((json) => {
-                        console.log("all good, token is ready" + json);
-                    }).catch((response) => {
-                        console.log(response.status, response.statusText);
-                        //3. get error messages, if any
-                        response.json().then((json) => {
-                            console.log(json);
-                            switch (true) {
-                                case json['errors']['Email'] != false: this.error = 'Invalid e-mail!'
-                                break;
-                                case json['errors']['Password'] != false: this.error = 'Invalid password!'
-                                break;
-                                case json['errors']['Email'] != false && json['errors']['Password'] != false: this.error = 'Invalid e-mail and password!';
-                                break;
-                                case json['DuplicateEmail']['DuplicateEmail'] != false: this.error = 'E-mail is already taken!';
-                                break;
-                            }
-                        })
+
+                        return response.json();
+                    }).then(json => {
+                        this.error = [];
+                        console.log(JSON.parse(JSON.stringify(json)));
+                        var errors = json.errors;
+                        for (const [key, value] of Object.entries(errors)) {
+                            this.error.push(JSON.stringify(value));
+                        }
                     });
                 } catch (err) {
                     console.log(err);
                     this.error = err;
-                }*/
+                }
             },
         }
     }

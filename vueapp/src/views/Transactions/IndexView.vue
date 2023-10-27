@@ -65,7 +65,7 @@
                 transactions: null,
                 category: null,
                 user: null,
-                error: '',
+                error: null,
                 routeTo: '',
             };
         },
@@ -91,9 +91,11 @@
                     if (response.ok) {
                         return response.json();
                     } else {
+                        this.error = [];
                         if (response.status === 404) {
-                            this.error = "You must login first!";
+                            this.error.push("You must login first!");
                             this.routeTo = "/login"
+                            sessionStorage.removeItem("isAuthenticated");
                         }
                     }
                 }).then(json => {

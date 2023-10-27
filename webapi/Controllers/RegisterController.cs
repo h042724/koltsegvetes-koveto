@@ -1,10 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Text;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebUtilities;
+using webapi.Models;
 
 namespace WebApp1.Areas.Identity.Pages.Account
 {
@@ -12,17 +10,17 @@ namespace WebApp1.Areas.Identity.Pages.Account
     [Route("[controller]")]
     public class RegisterController : ControllerBase
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly IUserStore<IdentityUser> _userStore;
-        private readonly IUserEmailStore<IdentityUser> _emailStore;
+        private readonly SignInManager<ApiUser> _signInManager;
+        private readonly UserManager<ApiUser> _userManager;
+        private readonly IUserStore<ApiUser> _userStore;
+        private readonly IUserEmailStore<ApiUser> _emailStore;
         private readonly ILogger<RegisterController> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterController(
-            UserManager<IdentityUser> userManager,
-            IUserStore<IdentityUser> userStore,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<ApiUser> userManager,
+            IUserStore<ApiUser> userStore,
+            SignInManager<ApiUser> signInManager,
             ILogger<RegisterController> logger,
             IEmailSender emailSender)
         {
@@ -33,13 +31,16 @@ namespace WebApp1.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
         }
-
-        [BindProperty]
-        public InputModel Input { get; set; }
-        public string ReturnUrl { get; set; }
-        public IList<AuthenticationScheme> ExternalLogins { get; set; }
-        public class InputModel
+        public class SignUpModel
         {
+            [Required]
+            [PersonalData]
+            [Display(Name = "FirstName")]
+            public string FirstName { get; set; }
+            [Required]
+            [PersonalData]
+            [Display(Name = "LastName")]
+            public string LastName { get; set; }
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -56,75 +57,39 @@ namespace WebApp1.Areas.Identity.Pages.Account
         }
 
         [HttpPost]
-        public async Task<IActionResult> OnPostAsync()
+        [Route("register")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> OnPostAsync([FromBody] SignUpModel signUpModel)
         {
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
+                var user = new ApiUser { FirstName = signUpModel.FirstName, 
+                                         LastName = signUpModel.LastName,
+                                         Email = signUpModel.Email };
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                await _userStore.SetUserNameAsync(user, signUpModel.Email, CancellationToken.None);
+                await _emailStore.SetEmailAsync(user, signUpModel.Email, CancellationToken.None);
+                var result = await _userManager.CreateAsync(user, signUpModel.Password);
 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    /*var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
-                        protocol: Request.Scheme);*/
-
-                    /*await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");*/
-
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        _logger.LogInformation("RequireConfirmedAccount");
-                        //return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    }
-                    else
-                    {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return Accepted();
-                    }
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return Accepted();
                 }
-                /*foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }*/
             }
 
-            // If we got this far, something failed, redisplay form
             return Unauthorized();
         }
 
-        private IdentityUser CreateUser()
-        {
-            try
-            {
-                return Activator.CreateInstance<IdentityUser>();
-            }
-            catch
-            {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(IdentityUser)}'. " +
-                    $"Ensure that '{nameof(IdentityUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
-                    $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
-            }
-        }
-
-        private IUserEmailStore<IdentityUser> GetEmailStore()
+        private IUserEmailStore<ApiUser> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
             {
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<IdentityUser>)_userStore;
+            return (IUserEmailStore<ApiUser>)_userStore;
         }
     }
 }

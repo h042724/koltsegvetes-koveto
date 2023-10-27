@@ -5,7 +5,6 @@
             <p>Login</p>
             <div>
                 <error v-if="error" :text="error" />
-                <success v-if="success" :success="success" />
                 <div class="form-group">
                     <label for="email">E-mail:</label>
                     <input id="email" type="text" class="form-control" ref="email" required autocomplete="off" />
@@ -22,7 +21,6 @@
 
 <script>
     import Error from '../../components/ErrorComponent.vue';
-    import Success from '../../components/SuccessComponent.vue';
     const sessionStorage = window.sessionStorage;
     const uri = 'https://localhost:7007/Login';
 
@@ -30,13 +28,10 @@
         name: "LoginView",
         components: {
             Error,
-            Success
         },
-        prop: ['success'],
         data() {
             return {
-                error: '',
-                //success: ''
+                error: null,
             }
         },
         mounted() {
@@ -47,8 +42,7 @@
             async login() {
                 const postData = {
                     email: this.$refs.email.value,
-                    password: this.$refs.password.value,
-                    rememberMe: false
+                    password: this.$refs.password.value
                 };
 
                 await fetch(`${uri}/login`, {
@@ -63,14 +57,11 @@
                         sessionStorage.isAuthenticated = true;
                         this.$router.push('/transactions');
                     } else {
+                        this.error = [];
                         this.$refs.password.value = '';
-                        this.error = 'Invalid email or password!';
+                        this.error.push('Invalid email or password!');
                     }
-                })/*.then((responseJson) => {
-                    // Do something with the response
-                }).catch((error) => {
-                    console.log(error)
-                })*/;
+                });
             },
         }
     }

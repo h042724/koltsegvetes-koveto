@@ -3,7 +3,9 @@
         <span class="material-icons">error</span>
         <b>Error!&nbsp;</b> 
         <router-link :to=routeTo>
-            {{ text }}
+            <div v-for="error in text" :key="error">
+                {{ error }}
+            </div>
         </router-link>
     </div>
 </template>
@@ -13,8 +15,7 @@
         name: "ErrorComponent",
         props: {
             text: {
-                type: String,
-                default: '',
+                type: [ String, Array ],
                 required: true
             },
 
