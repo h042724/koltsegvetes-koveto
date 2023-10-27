@@ -80,7 +80,8 @@
                     name: document.getElementById('name').value,
                     amount: document.getElementById('amount').value,
                     transactionDate: document.getElementById('transaction-date').value,
-                    categoryID: document.getElementById("categories").value
+                    categoryID: document.getElementById("categories").value,
+                    userID: ''
                 };
 
                 try {

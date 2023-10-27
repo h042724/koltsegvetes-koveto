@@ -12,10 +12,10 @@ namespace webapi.Controllers
     public class TransactionsController : Controller
     {
         private readonly EFContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApiUser> _userManager;
         private readonly ILogger<TransactionsController> _logger;
 
-        public TransactionsController(EFContext context, UserManager<IdentityUser> userManager, ILogger<TransactionsController> logger)
+        public TransactionsController(EFContext context, UserManager<ApiUser> userManager, ILogger<TransactionsController> logger)
         {
             _context = context;
             _userManager = userManager;
@@ -24,7 +24,7 @@ namespace webapi.Controllers
 
         // GET: Transactions
         [Authorize]
-        [HttpGet(Name = "GetTransactions")]
+        [HttpGet]
         public async Task<IActionResult> GetAsync()
         {
             try
@@ -41,20 +41,21 @@ namespace webapi.Controllers
         }
 
         // GET: Transactions/Details/5
+        [Authorize]
         [HttpGet("{id:int}")]
         public Transactions Details(int id)
         {
-            return _context.transactions.Include(u => u.ReferencedCategory).FirstOrDefault(m => m.ID == id);
+           return _context.transactions.Include(u => u.ReferencedCategory).FirstOrDefault(m => m.ID == id);
         }
 
 
         // POST: Transactions/Create
+        [Authorize]
         [HttpPost("{type}")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Create(string type, [FromBody] Transactions transactions)
         {
-            _logger.LogError( $"Something went wrong " + ModelState);
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -73,19 +74,19 @@ namespace webapi.Controllers
                 }
                 
                 _context.Add(transactions);
-                _logger.LogInformation(transactions.Name, transactions.UserID, transactions.ReferencedCategory);
                 await _context.SaveChangesAsync();
 
                 return Accepted(); 
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"Something went wrong in the {nameof(Create)}");
-                return Problem($"Something went wrong in the {nameof(Create)}", statusCode: 500);
+                Console.WriteLine(e + $" Something went wrong in the {nameof(Create)}");
+                return Problem(e + $" Something went wrong in the {nameof(Create)}", statusCode: 500);
             }
         }
 
         // POST: Transactions/Edit/5
+        [Authorize]
         [HttpPost("edit/{type}/{id}")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -106,6 +107,12 @@ namespace webapi.Controllers
                 transactions.Amount *= -1;
             }
 
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+                transactions.UserID = user.Id;
+            }
+
             try
             {
                 _context.Update(transactions);
@@ -122,13 +129,14 @@ namespace webapi.Controllers
                 else
                 {
                     _logger.LogError(e, $"Something went wrong in the {nameof(Edit)}");
-                return Problem($"Something went wrong in the {nameof(Edit)}", statusCode: 500);
+                    return Problem($"Something went wrong in the {nameof(Edit)}", statusCode: 500);
                 }
             }
         }
 
 
         // DELETE: Transactions/Delete/5
+        [Authorize]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
